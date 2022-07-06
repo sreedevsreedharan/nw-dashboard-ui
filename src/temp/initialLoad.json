@@ -1,0 +1,72 @@
+{
+	"pendingVacationUser":[
+		{
+			"id":1,
+			"name":"Sreedev Sreedharan",
+			"team": "Telematics",
+			"email":"sreedev.sreedharan@gds.ey.com",
+			"location": "tvm",
+			"lead": "Sreedev Sreedharan",
+			"GPN":"1234",
+			"line": "T&M"
+		},
+		{
+			"id":2,
+			"name":"Shivam Kale",
+			"team": "Telematics",
+			"email":"shivam.kale@gds.ey.com",
+			"location": "blr",
+			"lead": "Sreedev Sreedharan",
+			"GPN":"1234",
+			"line": "T&M"
+		}
+	],
+	"currentDayLeave":[
+		{
+			"id":1,
+			"name":"Sreedev Sreedharan",
+			"team": "Telematics",
+			"email":"sreedev.sreedharan@gds.ey.com",
+			"location": "tvm",
+			"leavefrom":"21/07/2022",
+			"leaveto":"23/07/2022",
+			"planned": true,
+			"type": "half",
+			"ph": false
+		},
+		{
+			"id":2,
+			"name":"Shivam Kale",
+			"team": "Telematics",
+			"email":"shivam.kale@gds.ey.com",
+			"location": "blr",
+			"leavefrom":"21/07/2022",
+			"leaveto":"23/07/2022",
+			"planned": true,
+			"type": "full",
+			"ph": true
+		}
+	],
+	"allUsers":[
+		{
+			"id":1,
+			"name":"Sreedev Sreedharan",
+			"team": "Telematics",
+			"email":"sreedev.sreedharan@gds.ey.com",
+			"location": "tvm",
+			"lead": "Sreedev Sreedharan",
+			"GPN":"1234",
+			"line": "T&M"
+		},
+		{
+			"id":2,
+			"name":"Shivam Kale",
+			"team": "Telematics",
+			"email":"shivam.kale@gds.ey.com",
+			"location": "blr",
+			"lead": "Sreedev Sreedharan",
+			"GPN":"1234",
+			"line": "T&M"
+		}
+	]
+}

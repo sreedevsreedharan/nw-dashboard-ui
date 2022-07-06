@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from 'react-redux';
 
 const OnHoliday = () => {
+    let currentState = useSelector((state) => state.leaveToday);
     return (
         <div className="col-md-12">
             <div>
@@ -8,27 +10,30 @@ const OnHoliday = () => {
             </div>
             <table className="table mt-5">
                 <thead>
-                    <th>#</th>
-                    <th>Employee name</th>
-                    <th>GPN</th>
-                    <th>Leave from</th>
-                    <th>Leave to</th>
+                    <tr>
+                        <th>#</th>
+                        <th>Employee name</th>
+                        <th>Leave from</th>
+                        <th>Leave to</th>
+                        <th>Type</th>
+                        <th>Public Holiday?</th>
+                        <th>Planned?</th>
+                    </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Sreedev Sreedharan</td>
-                        <td>IN010M78138</td>
-                        <td>27/06/2022</td>
-                        <td>28/06/2022</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Shivam Kale</td>
-                        <td>IN010M78139</td>
-                        <td>27/06/2022</td>
-                        <td>28/06/2022</td>
-                    </tr>
+                    {currentState.leaveToday.map((user, index) => {
+                        return (
+                            <tr key={user.id}>
+                                <td>{index+1}</td>
+                                <td>{user.name}</td>
+                                <td>{user.leavefrom}</td>
+                                <td>{user.leaveto}</td>
+                                <td>{user.type==='half'?"Half Day":"Full Day"}</td>
+                                <td>{user.ph?"Yes":"No"}</td>
+                                <td>{user.planned?"Yes":"No"}</td>
+                            </tr>
+                        )
+                    })}                    
                 </tbody>
             </table>
         </div>
