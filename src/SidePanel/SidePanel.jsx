@@ -1,37 +1,39 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const SidePanel = ({toggleScreen}) => {
-    return(
+const SidePanel = () => {
+    return (
         <div className="row mt-3 ml-3">
             <div className="col-md-12">
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <a href="#"  className="text-light"onClick={toggleScreen}>Home</a>
+                        <Link className="text-light" to="/">Home</Link>
                     </div>
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <a href="#"  className="text-light" onClick={toggleScreen}>Track Vacation</a>
+                        <Link className="text-light" to="/trackVacation">Track Vacation</Link>
+
                     </div>
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <a href="#" className="text-light">View Report</a>
+                        <Link className="text-light" to="/">View report</Link>
                     </div>
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <a href="#" className="text-light">Add User</a>
+                    <Link className="text-light" to="/">Add User</Link>
                     </div>
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <a href="#" className="text-light">Add Public Holiday</a>
+                    <Link className="text-light" to="/">Add Public Holiday</Link>
                     </div>
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <a href="#" className="text-light">View Public Holidays</a>
+                    <Link className="text-light" to="/">View Public Holidays</Link>
                     </div>
                 </div>
             </div>
