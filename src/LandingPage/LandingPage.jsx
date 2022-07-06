@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Home from "../Home/Home";
 import SidePanel from "../SidePanel/SidePanel";
 import TrackVacation from "../TrackVacation/TrackVacation";
 import './LandingPage.scss';
+import initialLoad from '../temp/initialLoad.json';
+import { useDispatch } from "react-redux";
+import { addLeaveToday, addUsers, addVacationPending } from "../common/redux/DashBoardSlice";
 
 const LandingPage = () => {
 
+    const dispatch = useDispatch();
+    
+
     const[currentScreen, setCurrentScreen] = useState(true);
+
+    useEffect(()=>{
+        console.log('initialLoad',initialLoad);
+        dispatch(addUsers(initialLoad.allUsers));
+        dispatch(addLeaveToday(initialLoad.currentDayLeave));
+        dispatch(addVacationPending(initialLoad.pendingVacationUser));
+
+    },[]);
 
     const toggleScreen = () =>{
         setCurrentScreen(!currentScreen);
