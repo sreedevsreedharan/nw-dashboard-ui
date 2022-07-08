@@ -65,7 +65,17 @@
 			"email":"shivam.kale@gds.ey.com",
 			"location": "blr",
 			"lead": "Sreedev Sreedharan",
-			"GPN":"1234",
+			"GPN":"1235",
+			"line": "T&M"
+		},
+		{
+			"id":3,
+			"name":"Soumen Barik",
+			"team": "Telematics",
+			"email":"soumen.barik@gds.ey.com",
+			"location": "klk",
+			"lead": "Sreedev Sreedharan",
+			"GPN":"1236",
 			"line": "T&M"
 		}
 	]

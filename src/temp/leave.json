@@ -1,0 +1,22 @@
+{
+    "leaves":[
+        {
+            "date": "07/27/2022",
+            "planned": true,
+            "type": "full",
+            "ph": false            
+        },
+        {
+            "date": "07/28/2022",
+            "planned": true,
+            "type": "full",
+            "ph": true            
+        },
+        {
+            "date": "08/01/2022",
+            "planned": true,
+            "type": "full",
+            "ph": false            
+        }
+    ]
+}
