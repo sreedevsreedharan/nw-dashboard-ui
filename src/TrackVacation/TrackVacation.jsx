@@ -75,8 +75,18 @@ const TrackVacation = () => {
                 }
                 saveObject.leaves.push(newDate);
             });
+            console.log('saveObject', saveObject)
+            saveObject.leaves.sort((a, b) => {
+                let ts1 = Date.parse(a.date);
+                let date1 = new Date(ts1);
+                let ts2 = Date.parse(b.date);
+                let date2 = new Date(ts2);
+               return ((date1 > date2) ? -1 : ((date2 > date1) ? 1 : 0));
+            });
+            console.log('saveObject', saveObject)
             setFinalSaveObject(saveObject);
         }
+
     }
 
     const dateAlreadyPresent = (edittingDate) => {
@@ -226,7 +236,7 @@ const TrackVacation = () => {
                                             })
                                             }
                                         </tbody>
-                                    </table>                        
+                                    </table>
                                 </div>
                             </div>
                         </div>
