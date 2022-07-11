@@ -23,13 +23,7 @@ const TrackVacation = () => {
      * setting to calendar
      */
     useEffect(() => {
-        let tempVacations = [];
-        for (let index = 0; index < leaveData.leaves.length; index++) {
-            let timestamp = Date.parse(leaveData.leaves[index].date);
-            let dateObject = new Date(timestamp);
-            tempVacations.push(dateObject);
-        }
-        setVacationValues(tempVacations);
+        
     }, []);
 
 
@@ -38,6 +32,13 @@ const TrackVacation = () => {
      * @param {} e 
      */
     const userChanged = (e) => {
+        let tempVacations = [];
+        for (let index = 0; index < leaveData.leaves.length; index++) {
+            let timestamp = Date.parse(leaveData.leaves[index].date);
+            let dateObject = new Date(timestamp);
+            tempVacations.push(dateObject);
+        }
+        setVacationValues(tempVacations);
         setCurrentUser(e.target.value);
     }
 
@@ -189,10 +190,10 @@ const TrackVacation = () => {
                 </div>
                 <div className="row mt-5 ms-3">
                     <div className="col-md-1">
-                        <button className="btn bg-blue" onClick={setNewVacationDateObjects}>Submit</button>
+                        <button disabled={!currentUser} className="btn bg-blue" onClick={setNewVacationDateObjects}>Submit</button>
                     </div>
                     <div className="col-md-1">
-                        <button className="btn btn-secondary">Cancel</button>
+                        <button disabled={!currentUser} className="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
             </div>
