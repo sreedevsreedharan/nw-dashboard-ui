@@ -73,7 +73,7 @@ const TrackVacation = () => {
                     newDate = {
                         date: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
                         planned: true,
-                        type: "full",
+                        type: true,
                         ph: false
                     }
                 }
@@ -127,11 +127,7 @@ const TrackVacation = () => {
         let tempFinalSaveObject = finalSaveObject;
         tempFinalSaveObject.leaves.forEach(element => {
             if (element.date === vacationDate) {
-                if (checked) {
-                    element.type = "full";
-                } else {
-                    element.type = "half";
-                }
+                element.type = checked;
             }
         });
         setFinalSaveObject(tempFinalSaveObject);
@@ -216,29 +212,29 @@ const TrackVacation = () => {
                                 <div className="col-md-12">
                                     <div className="row">
                                         <div className="col-md-12">
-                                            {finalSaveObject && finalSaveObject.leaves.length>displayLimit &&
-                                            <div className="row">
-                                                <div className="col-md-2 offset-md-6">
-                                                    Showing {currentDisplayObject.length} of {finalSaveObject.leaves.length} items
-                                                </div>
-                                                <div className="col-md-2">
-                                                    <button disabled={currentRowStart === 0} className="btn btn-success" onClick={() => {
-                                                        setCurrentRowStart(currentRowStart - displayLimit);
-                                                        setCurrentRowLimit(currentRowLimit - displayLimit);
-                                                        refreshTableData(finalSaveObject, currentRowStart - displayLimit,
-                                                            currentRowLimit - displayLimit);
-                                                    }}>Show previous</button>
-                                                </div>
-                                                <div className="col-md-2">
-                                                    <button disabled={finalSaveObject && currentRowLimit >= finalSaveObject.leaves.length} className="btn btn-success" onClick={() => {
-                                                        setCurrentRowStart(currentRowStart + displayLimit);
-                                                        setCurrentRowLimit(currentRowLimit + displayLimit);
-                                                        refreshTableData(finalSaveObject, currentRowStart + displayLimit,
-                                                            currentRowLimit + displayLimit);
-                                                    }}>
-                                                        Show next</button>
-                                                </div>
-                                            </div>}
+                                            {finalSaveObject && finalSaveObject.leaves.length > displayLimit &&
+                                                <div className="row">
+                                                    <div className="col-md-3 offset-md-5">
+                                                        Showing {currentDisplayObject.length + currentRowStart} of {finalSaveObject.leaves.length} items
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <button disabled={currentRowStart === 0} className="btn btn-success" onClick={() => {
+                                                            setCurrentRowStart(currentRowStart - displayLimit);
+                                                            setCurrentRowLimit(currentRowLimit - displayLimit);
+                                                            refreshTableData(finalSaveObject, currentRowStart - displayLimit,
+                                                                currentRowLimit - displayLimit);
+                                                        }}>Show previous</button>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <button disabled={finalSaveObject && currentRowLimit >= finalSaveObject.leaves.length} className="btn btn-success" onClick={() => {
+                                                            setCurrentRowStart(currentRowStart + displayLimit);
+                                                            setCurrentRowLimit(currentRowLimit + displayLimit);
+                                                            refreshTableData(finalSaveObject, currentRowStart + displayLimit,
+                                                                currentRowLimit + displayLimit);
+                                                        }}>
+                                                            Show next</button>
+                                                    </div>
+                                                </div>}
                                         </div>
                                     </div>
 
@@ -256,7 +252,7 @@ const TrackVacation = () => {
                                             {currentDisplayObject && currentDisplayObject.map((vacation, index) => {
                                                 return (
                                                     < tr key={vacation.date} >
-                                                        <td>{index + 1}</td>
+                                                        <td>{currentRowStart + index + 1}</td>
                                                         <td>{vacation.date}</td>
                                                         <td>
                                                             <div class="form-check form-switch">
@@ -265,7 +261,7 @@ const TrackVacation = () => {
                                                         </td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input class="form-check-input" onChange={(e) => updateLeaveType(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.type === 'full'} />
+                                                                <input class="form-check-input" onChange={(e) => updateLeaveType(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.type} />
                                                             </div>
                                                         </td>
                                                         <td>

@@ -31,7 +31,7 @@
 			"leavefrom":"21/07/2022",
 			"leaveto":"23/07/2022",
 			"planned": true,
-			"type": "half",
+			"type": true,
 			"ph": false
 		},
 		{
@@ -43,7 +43,7 @@
 			"leavefrom":"21/07/2022",
 			"leaveto":"23/07/2022",
 			"planned": true,
-			"type": "full",
+			"type": true,
 			"ph": true
 		}
 	],
