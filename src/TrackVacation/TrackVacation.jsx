@@ -8,11 +8,15 @@ import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const TrackVacation = () => {
+    const displayLimit = 6;
     let currentState = useSelector((state) => state.users);
     const [vacationValues, setVacationValues] = useState();
     const [currentUser, setCurrentUser] = useState();
     const navigate = useNavigate();
     const [finalSaveObject, setFinalSaveObject] = useState();
+    const [currentRowStart, setCurrentRowStart] = useState(0);
+    const [currentRowLimit, setCurrentRowLimit] = useState(displayLimit);
+    const [currentDisplayObject, setCurrentDisplayObject] = useState([]);
 
     /**
      *  API response contains all the leave details. Extracting just date from that for
@@ -75,18 +79,28 @@ const TrackVacation = () => {
                 }
                 saveObject.leaves.push(newDate);
             });
-            console.log('saveObject', saveObject)
             saveObject.leaves.sort((a, b) => {
                 let ts1 = Date.parse(a.date);
                 let date1 = new Date(ts1);
                 let ts2 = Date.parse(b.date);
                 let date2 = new Date(ts2);
-               return ((date1 > date2) ? -1 : ((date2 > date1) ? 1 : 0));
+                return ((date1 > date2) ? -1 : ((date2 > date1) ? 1 : 0));
             });
-            console.log('saveObject', saveObject)
             setFinalSaveObject(saveObject);
+            refreshTableData(saveObject, currentRowStart, currentRowLimit);
+
         }
 
+    }
+
+    const refreshTableData = (saveObject, rowStart, rowLimit) => {
+        let newDisplayObject = [];
+        saveObject.leaves.forEach((leave, index) => {
+            if (index >= rowStart && index < rowLimit) {
+                newDisplayObject.push(leave);
+            }
+        });
+        setCurrentDisplayObject(newDisplayObject);
     }
 
     const dateAlreadyPresent = (edittingDate) => {
@@ -127,7 +141,7 @@ const TrackVacation = () => {
         let tempFinalSaveObject = finalSaveObject;
         tempFinalSaveObject.leaves.forEach(element => {
             if (element.date === vacationDate) {
-                element.planned = checked
+                element.planned = checked;
             }
         });
         setFinalSaveObject(tempFinalSaveObject);
@@ -200,6 +214,34 @@ const TrackVacation = () => {
                         <div class="modal-body">
                             <div className="row ms-5">
                                 <div className="col-md-12">
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            {finalSaveObject && finalSaveObject.leaves.length>displayLimit &&
+                                            <div className="row">
+                                                <div className="col-md-2 offset-md-6">
+                                                    Showing {currentDisplayObject.length} of {finalSaveObject.leaves.length} items
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <button disabled={currentRowStart === 0} className="btn btn-success" onClick={() => {
+                                                        setCurrentRowStart(currentRowStart - displayLimit);
+                                                        setCurrentRowLimit(currentRowLimit - displayLimit);
+                                                        refreshTableData(finalSaveObject, currentRowStart - displayLimit,
+                                                            currentRowLimit - displayLimit);
+                                                    }}>Show previous</button>
+                                                </div>
+                                                <div className="col-md-2">
+                                                    <button disabled={finalSaveObject && currentRowLimit >= finalSaveObject.leaves.length} className="btn btn-success" onClick={() => {
+                                                        setCurrentRowStart(currentRowStart + displayLimit);
+                                                        setCurrentRowLimit(currentRowLimit + displayLimit);
+                                                        refreshTableData(finalSaveObject, currentRowStart + displayLimit,
+                                                            currentRowLimit + displayLimit);
+                                                    }}>
+                                                        Show next</button>
+                                                </div>
+                                            </div>}
+                                        </div>
+                                    </div>
+
                                     <table className="table mt-5">
                                         <thead>
                                             <tr>
@@ -211,7 +253,7 @@ const TrackVacation = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {finalSaveObject && finalSaveObject.leaves.map((vacation, index) => {
+                                            {currentDisplayObject && currentDisplayObject.map((vacation, index) => {
                                                 return (
                                                     < tr key={vacation.date} >
                                                         <td>{index + 1}</td>
