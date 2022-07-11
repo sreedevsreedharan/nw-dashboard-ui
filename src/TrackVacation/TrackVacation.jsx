@@ -45,20 +45,16 @@ const TrackVacation = () => {
      * Save call to API with all vacation values
      */
     const setNewVacationDateObjects = () => {
-        let myModal = new Modal(document.getElementById('leaveType'));
-        myModal.show();
         let saveObject = {
             gpn: currentUser,
             leaves: []
         }
         if (vacationValues.length > 0 && vacationValues[0] instanceof Date) {
-            /**
-             * If vacation values have date which means no new date is inserted 
-             * If any date is inserted then it will have value of date picker type 'r'
-             * Need to provide an additional check to see if no data is present in current
-             * month. Then show some pop-up's
-             */
+            let myModal = new Modal(document.getElementById('noData'));
+            myModal.show();
         } else {
+            let myModal = new Modal(document.getElementById('leaveType'));
+            myModal.show();
             vacationValues.forEach(vacation => {
                 const currentDate = `${vacation.month.number > 9 ? vacation.month.number : `0${vacation.month.number}`}/${vacation.day > 9 ? vacation.day : `0${vacation.day}`}/${vacation.year}`;
                 let newDate = {};
@@ -280,6 +276,22 @@ const TrackVacation = () => {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onClick={saveVacation} data-bs-dismiss="modal">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="noData" tabindex="-1" role="dialog" aria-labelledby="noData" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            No data to save. Please enter some vacation dates
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>
