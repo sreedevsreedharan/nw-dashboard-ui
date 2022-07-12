@@ -15,4 +15,4 @@ const DashBoardBox = ({count, text}) => {
         </div>
     )
 }
-export default DashBoardBox
+export default DashBoardBox;

@@ -12,8 +12,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 const LandingPage = () => {
 
     const dispatch = useDispatch();
+    const dashboardName = process.env.REACT_APP_DASHBOARD_NAME;
 
-    
+
     useEffect(() => {
         dispatch(addUsers(initialLoad.allUsers));
         dispatch(addLeaveToday(initialLoad.currentDayLeave));
@@ -26,13 +27,13 @@ const LandingPage = () => {
             <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-12 text-center p-4 header">
-                        NW Dashboard
+                        {dashboardName}
                     </div>
                 </div>
                 <BrowserRouter>
                     <div className="row">
                         <div className="col-md-2 side-panel-parent">
-                            <SidePanel/>
+                            <SidePanel />
                         </div>
                         <div className="col-md-10">
 

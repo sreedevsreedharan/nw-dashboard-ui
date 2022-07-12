@@ -1,23 +1,22 @@
 import React from "react";
 import { useSelector } from 'react-redux';
+import { fullDay, half, halfDay, no, onHolidayHeaders, onLeaveToday, yes } from "../../common/constants/constants";
 
 const OnHoliday = () => {
     let currentState = useSelector((state) => state.leaveToday);
     return (
         <div className="col-md-12">
             <div>
-                <h5>On Leave today</h5>
+                <h5>{onLeaveToday}</h5>
             </div>
             <table className="table mt-5">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Employee name</th>
-                        <th>Leave from</th>
-                        <th>Leave to</th>
-                        <th>Type</th>
-                        <th>Public Holiday?</th>
-                        <th>Planned?</th>
+                        {onHolidayHeaders.map(header=>{
+                            return(
+                                <th>{header}</th>
+                            )
+                        })}                    
                     </tr>
                 </thead>
                 <tbody>
@@ -28,9 +27,9 @@ const OnHoliday = () => {
                                 <td>{user.name}</td>
                                 <td>{user.leavefrom}</td>
                                 <td>{user.leaveto}</td>
-                                <td>{user.type==='half'?"Half Day":"Full Day"}</td>
-                                <td>{user.ph?"Yes":"No"}</td>
-                                <td>{user.planned?"Yes":"No"}</td>
+                                <td>{user.type===half?halfDay:fullDay}</td>
+                                <td>{user.ph?yes:no}</td>
+                                <td>{user.planned?yes:no}</td>
                             </tr>
                         )
                     })}                    

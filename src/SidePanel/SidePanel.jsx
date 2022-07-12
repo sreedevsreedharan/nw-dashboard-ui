@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { home, trackVacation, viewReport } from "../common/constants/constants";
 
 const SidePanel = () => {
     return (
@@ -7,35 +8,20 @@ const SidePanel = () => {
             <div className="col-md-12">
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <Link className="text-light" to="/">Home</Link>
+                        <Link className="text-light" to="/">{home}</Link>
                     </div>
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <Link className="text-light" to="/trackVacation">Track Vacation</Link>
+                        <Link className="text-light" to="/trackVacation">{trackVacation}</Link>
 
                     </div>
                 </div>
                 <div className="row mt-3">
                     <div className="col-md-12">
-                        <Link className="text-light" to="/">View report</Link>
+                        <Link className="text-light" to="/viewReport">{viewReport}</Link>
                     </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-12">
-                    <Link className="text-light" to="/">Add User</Link>
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-12">
-                    <Link className="text-light" to="/">Add Public Holiday</Link>
-                    </div>
-                </div>
-                <div className="row mt-3">
-                    <div className="col-md-12">
-                    <Link className="text-light" to="/">View Public Holidays</Link>
-                    </div>
-                </div>
+                </div>                
             </div>
 
         </div>
