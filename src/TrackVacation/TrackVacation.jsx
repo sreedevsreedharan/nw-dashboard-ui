@@ -173,7 +173,7 @@ const TrackVacation = () => {
                         </select>
                     </div>
                 </div>
-                <div className="row ml-3">
+                <div className="row ms-3">
                     {confirmVacations}
                 </div>
                 <div className="row ms-1 mt-2">
