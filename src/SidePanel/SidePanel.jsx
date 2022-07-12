@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { home, trackVacation, viewReport } from "../common/constants/constants";
+import './SidePanel.scss';
 
 const SidePanel = () => {
     return (
-        <div className="row mt-3 ml-3">
+        <div className="row mt-3 ms-3">
             <div className="col-md-12">
                 <div className="row mt-3">
                     <div className="col-md-12">
