@@ -4,7 +4,6 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { useSelector } from "react-redux";
 import { cancel, confirmVacations, selectEmployee, submit } from "../common/constants/constants";
 import './TrackVacation.scss';
-import { useSelector } from 'react-redux';
 import leaveData from '../temp/leave.json';
 import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
