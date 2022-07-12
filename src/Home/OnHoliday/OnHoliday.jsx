@@ -28,7 +28,7 @@ const OnHoliday = () => {
                                 <td>{user.name}</td>
                                 <td>{user.leavefrom}</td>
                                 <td>{user.leaveto}</td>
-                                <td>{user.type==='half'?"Half Day":"Full Day"}</td>
+                                <td>{user.type?"Full Day":"Half Day"}</td>
                                 <td>{user.ph?"Yes":"No"}</td>
                                 <td>{user.planned?"Yes":"No"}</td>
                             </tr>
