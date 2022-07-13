@@ -28,8 +28,6 @@
 			"team": "Telematics",
 			"email":"sreedev.sreedharan@gds.ey.com",
 			"location": "tvm",
-			"leavefrom":"21/07/2022",
-			"leaveto":"23/07/2022",
 			"planned": true,
 			"type": true,
 			"ph": false
@@ -40,8 +38,6 @@
 			"team": "Telematics",
 			"email":"shivam.kale@gds.ey.com",
 			"location": "blr",
-			"leavefrom":"21/07/2022",
-			"leaveto":"23/07/2022",
 			"planned": true,
 			"type": true,
 			"ph": true

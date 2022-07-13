@@ -1,5 +1,5 @@
 export const onHolidayHeaders = [
-    "#","Employee name","Leave from","Leave to","Type","Public Holiday?","Planned?"
+    "#","Employee name","Type","Public Holiday?","Planned?"
 ];
 
 export const vacationPendingHeaders = [
