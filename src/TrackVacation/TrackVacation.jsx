@@ -24,7 +24,7 @@ const TrackVacation = () => {
      * setting to calendar
      */
     useEffect(() => {
-        
+
     }, []);
 
 
@@ -162,7 +162,7 @@ const TrackVacation = () => {
         <div className="row mt-4">
             <div className="col-md-12">
                 <div className="row mt-3 mb-3 ms-3">
-                    <div className="col-md-12">                
+                    <div className="col-md-12">
                         <select value={currentUser} className="drop-down mb-3" onChange={(e) => userChanged(e)}>
                             <option selected>{selectEmployee}</option>
                             {currentState.users.map(user => {
@@ -173,10 +173,11 @@ const TrackVacation = () => {
                         </select>
                     </div>
                 </div>
+                {currentUser &&
                 <div className="row ms-3">
                     {confirmVacations}
-                </div>
-                <div className="row ms-1 mt-2">
+                </div>}
+                {currentUser && <div className="row ms-1 mt-2">
                     <div className="col-md-6">
                         <DatePicker
                             multiple
@@ -188,15 +189,15 @@ const TrackVacation = () => {
                             ]}
                         />
                     </div>
-                </div>
-                <div className="row mt-5 ms-3">
+                </div>}
+                {currentUser && <div className="row mt-5 ms-3">
                     <div className="col-md-1">
                         <button disabled={!currentUser} className="btn bg-blue" onClick={setNewVacationDateObjects}>{submit}</button>
                     </div>
                     <div className="col-md-1">
                         <button disabled={!currentUser} className="btn btn-secondary">{cancel}</button>
                     </div>
-                </div>
+                </div>}
             </div>
             <div class="modal fade" id="leaveType" tabindex="-1" role="dialog" aria-labelledby="leaveType" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
