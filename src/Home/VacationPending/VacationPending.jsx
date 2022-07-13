@@ -1,18 +1,18 @@
 import React from "react";
 import { useSelector } from 'react-redux';
-import { fullDay, half, halfDay, no, onHolidayHeaders, onLeaveToday, yes } from "../../common/constants/constants";
+import { vacationPending, vacationPendingHeaders } from "../../common/constants/constants";
 
-const OnHoliday = () => {
+const VacationPending = () => {
     let currentState = useSelector((state) => state.leaveToday);
     return (
         <div className="col-md-12">
             <div>
-                <h5>{onLeaveToday}</h5>
+                <h5>{vacationPending}</h5>
             </div>
             <table className="table mt-5">
                 <thead>
                     <tr>
-                        {onHolidayHeaders.map(header=>{
+                        {vacationPendingHeaders.map(header=>{
                             return(
                                 <th>{header}</th>
                             )
@@ -20,16 +20,12 @@ const OnHoliday = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {currentState.leaveToday.map((user, index) => {
+                    {currentState.vacationPending.map((user, index) => {
                         return (
                             <tr key={user.id}>
                                 <td>{index+1}</td>
                                 <td>{user.name}</td>
-                                <td>{user.leavefrom}</td>
-                                <td>{user.leaveto}</td>
-                                <td>{user.type===half?halfDay:fullDay}</td>
-                                <td>{user.ph?yes:no}</td>
-                                <td>{user.planned?yes:no}</td>
+                                <td>{user.team}</td>                                
                             </tr>
                         )
                     })}                    
@@ -38,4 +34,4 @@ const OnHoliday = () => {
         </div>
     )
 }
-export default OnHoliday;
+export default VacationPending;

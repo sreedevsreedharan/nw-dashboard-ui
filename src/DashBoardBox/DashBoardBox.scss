@@ -1,8 +1,12 @@
 .dashboard-box{
-    border: 0.5px ;
-    background-color: #02C9AF;
+    border-left: 0.1em solid ;
+    border-right: 0.1em solid;
+    border-top: 0.9em solid;
+    border-bottom: 0.1em solid;
+    border-color: #02C9AF;
+    background-color: white;
     border-radius: 5%;
-    color: whitesmoke;
+    color: black;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 2%;
 
@@ -10,4 +14,12 @@
         font-size: x-large;
         margin-bottom: 0.5em;
     }
+
+    &:hover{
+        background-color: #02C9AF; 
+        color: whitesmoke;
+        cursor: pointer;
+    }
+
+
 }

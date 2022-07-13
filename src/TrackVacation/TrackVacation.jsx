@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import { useSelector } from "react-redux";
+import { cancel, confirmVacations, selectEmployee, submit } from "../common/constants/constants";
 import './TrackVacation.scss';
-import { useSelector } from 'react-redux';
 import leaveData from '../temp/leave.json';
 import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -161,9 +162,9 @@ const TrackVacation = () => {
         <div className="row mt-4">
             <div className="col-md-12">
                 <div className="row mt-3 mb-3 ms-3">
-                    <div className="col-md-12">
+                    <div className="col-md-12">                
                         <select value={currentUser} className="drop-down mb-3" onChange={(e) => userChanged(e)}>
-                            <option selected>--Employee Name--</option>
+                            <option selected>{selectEmployee}</option>
                             {currentState.users.map(user => {
                                 return (
                                     <option key={user.GPN} value={user.GPN}>{user.name}</option>
@@ -173,7 +174,7 @@ const TrackVacation = () => {
                     </div>
                 </div>
                 <div className="row ms-3">
-                    Confirm your vacations:
+                    {confirmVacations}
                 </div>
                 <div className="row ms-1 mt-2">
                     <div className="col-md-6">
@@ -190,10 +191,10 @@ const TrackVacation = () => {
                 </div>
                 <div className="row mt-5 ms-3">
                     <div className="col-md-1">
-                        <button disabled={!currentUser} className="btn bg-blue" onClick={setNewVacationDateObjects}>Submit</button>
+                        <button disabled={!currentUser} className="btn bg-blue" onClick={setNewVacationDateObjects}>{submit}</button>
                     </div>
                     <div className="col-md-1">
-                        <button disabled={!currentUser} className="btn btn-secondary">Cancel</button>
+                        <button disabled={!currentUser} className="btn btn-secondary">{cancel}</button>
                     </div>
                 </div>
             </div>
