@@ -1,26 +1,4 @@
 {
-	"pendingVacationUser":[
-		{
-			"id":1,
-			"name":"Sreedev Sreedharan",
-			"team": "Telematics",
-			"email":"sreedev.sreedharan@gds.ey.com",
-			"location": "tvm",
-			"lead": "Sreedev Sreedharan",
-			"GPN":"1234",
-			"line": "T&M"
-		},
-		{
-			"id":2,
-			"name":"Shivam Kale",
-			"team": "Telematics",
-			"email":"shivam.kale@gds.ey.com",
-			"location": "blr",
-			"lead": "Sreedev Sreedharan",
-			"GPN":"1234",
-			"line": "T&M"
-		}
-	],
 	"currentDayLeave":[
 		{
 			"id":1,
@@ -52,7 +30,10 @@
 			"location": "tvm",
 			"lead": "Sreedev Sreedharan",
 			"GPN":"1234",
-			"line": "T&M"
+			"line": "T&M",
+			"vacation":false,
+			"allowance": true,
+			"shift": true
 		},
 		{
 			"id":2,
@@ -62,7 +43,10 @@
 			"location": "blr",
 			"lead": "Sreedev Sreedharan",
 			"GPN":"1235",
-			"line": "T&M"
+			"line": "T&M",
+			"vacation":true,
+			"allowance": true,
+			"shift": true
 		},
 		{
 			"id":3,
@@ -72,7 +56,10 @@
 			"location": "klk",
 			"lead": "Sreedev Sreedharan",
 			"GPN":"1236",
-			"line": "T&M"
+			"line": "T&M",
+			"vacation":false,
+			"allowance": true,
+			"shift": true
 		}
 	]
 }

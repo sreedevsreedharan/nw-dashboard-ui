@@ -19,9 +19,16 @@ const Home = () => {
     }
 
     useEffect(() => {
+        let vacationPendingCount  = 0 ;
+        currentState.users.forEach(user => {
+            if(!user.vacation){
+                vacationPendingCount++;
+            }
+        });
+
         let content = [
             {
-                count: currentState.vacationPending.length,
+                count: vacationPendingCount,
                 text: vacationPending,
                 click: 'vacation'
             },

@@ -6,7 +6,7 @@ import TrackVacation from "../TrackVacation/TrackVacation";
 import './LandingPage.scss';
 import initialLoad from '../temp/initialLoad.json';
 import { useDispatch } from "react-redux";
-import { addLeaveToday, addUsers, addVacationPending } from "../common/redux/DashBoardSlice";
+import { addLeaveToday, addUsers } from "../common/redux/DashBoardSlice";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 const LandingPage = () => {
@@ -18,7 +18,6 @@ const LandingPage = () => {
     useEffect(() => {
         dispatch(addUsers(initialLoad.allUsers));
         dispatch(addLeaveToday(initialLoad.currentDayLeave));
-        dispatch(addVacationPending(initialLoad.pendingVacationUser));
     }, []);
 
 
