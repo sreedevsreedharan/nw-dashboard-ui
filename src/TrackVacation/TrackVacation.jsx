@@ -167,7 +167,7 @@ const TrackVacation = () => {
                             <option selected>{selectEmployee}</option>
                             {currentState.users.map(user => {
                                 return (
-                                    <option key={user.GPN} value={user.GPN}>{user.name}</option>
+                                    <option key={user.userGPN} value={user.userGPN}>{user.userName}</option>
                                 )
                             })}
                         </select>

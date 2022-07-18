@@ -3,7 +3,7 @@ export const onHolidayHeaders = [
 ];
 
 export const vacationPendingHeaders = [
-    "#","Employee name","Team"
+    "#","Employee name","GPN","Team"
 ]
 export const half = "half";
 export const halfDay = "Half Day";

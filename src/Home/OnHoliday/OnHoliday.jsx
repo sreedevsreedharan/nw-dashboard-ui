@@ -4,6 +4,7 @@ import { fullDay, half, halfDay, no, onHolidayHeaders, onLeaveToday, yes } from 
 
 const OnHoliday = () => {
     let currentState = useSelector((state) => state.leaveToday);
+
     return (
         <div className="col-md-12">
             <div>
@@ -22,12 +23,12 @@ const OnHoliday = () => {
                 <tbody>
                     {currentState.leaveToday.map((user, index) => {
                         return (
-                            <tr key={user.id}>
+                            <tr key={user.userGPN}>
                                 <td>{index+1}</td>
                                 <td>{user.name}</td>
-                                <td>{user.type===half?halfDay:fullDay}</td>
-                                <td>{user.ph?yes:no}</td>
-                                <td>{user.planned?yes:no}</td>
+                                <td>{user.vacationFullDay?fullDay:halfDay}</td>
+                                <td>{user.publicHoliday?yes:no}</td>
+                                <td>{user.vacationPlanned?yes:no}</td>
                             </tr>
                         )
                     })}                    

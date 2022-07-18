@@ -24,10 +24,11 @@ const VacationPending = () => {
                     {currentState.users.map((user, index) => {
                         if (!user.vacation) {
                             return (
-                                <tr key={user.id}>
+                                <tr key={user.userGPN}>
                                     <td>{index + 1}</td>
-                                    <td>{user.name}</td>
-                                    <td>{user.team}</td>
+                                    <td>{user.userName}</td>
+                                    <td>{user.userGPN}</td>
+                                    <td>{user.userProjectName}</td>
                                 </tr>
                             )
 

@@ -19,26 +19,29 @@ const Home = () => {
     }
 
     useEffect(() => {
-        let vacationPendingCount  = 0 ;
-        currentState.users.forEach(user => {
-            if(!user.vacation){
-                vacationPendingCount++;
-            }
-        });
+        let vacationPendingCount = 0;
+        if (currentState.users) {
+            currentState.users.forEach(user => {
+                if (!user.vacation) {
+                    vacationPendingCount++;
+                }
+            });
 
-        let content = [
-            {
-                count: vacationPendingCount,
-                text: vacationPending,
-                click: 'vacation'
-            },
-            {
-                count: currentState.leaveToday.length,
-                text: leaveCount,
-                click: 'leave'
-            }
-        ];
-        setDashBoardContent(content);
+            let content = [
+                {
+                    count: vacationPendingCount,
+                    text: vacationPending,
+                    click: 'vacation'
+                },
+                {
+                    count: currentState.leaveToday.length,
+                    text: leaveCount,
+                    click: 'leave'
+                }
+            ];
+            setDashBoardContent(content);
+        }
+
     }, [currentState]);
 
     return (
@@ -58,19 +61,19 @@ const Home = () => {
                 <div className="row mt-5">
                     {(() => {
                         switch (tableContent) {
-                            
+
                             case 'leave':
-                               return <OnHoliday />;
-                            
+                                return <OnHoliday />;
+
                             case 'vacation':
-                                return <VacationPending/>;
+                                return <VacationPending />;
 
                             default:
                                 break;
                         }
                     })()
                     }
-               
+
                 </div>
             </div>
         </div>
