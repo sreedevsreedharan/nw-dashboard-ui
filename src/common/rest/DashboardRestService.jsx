@@ -7,6 +7,10 @@ export default class DashboardRestService {
         return axios.get('http://localhost:8080/dashboard/v1/load');
     }
 
+    getVacations = (gpn) => {
+        return axios.get(`http://localhost:8080/dashboard/v1/${gpn}/vacations`);
+    }
+
     
 
 }

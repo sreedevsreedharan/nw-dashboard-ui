@@ -7,6 +7,7 @@ import './TrackVacation.scss';
 import leaveData from '../temp/leave.json';
 import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
+import DashboardRestService from "../common/rest/DashboardRestService";
 
 const TrackVacation = () => {
     const displayLimit = 6;
@@ -18,6 +19,7 @@ const TrackVacation = () => {
     const [currentRowStart, setCurrentRowStart] = useState(0);
     const [currentRowLimit, setCurrentRowLimit] = useState(displayLimit);
     const [currentDisplayObject, setCurrentDisplayObject] = useState([]);
+    const restService = new DashboardRestService();
 
     /**
      *  API response contains all the leave details. Extracting just date from that for
@@ -33,13 +35,29 @@ const TrackVacation = () => {
      * @param {} e 
      */
     const userChanged = (e) => {
+        setVacationValues([]);
         let tempVacations = [];
-        for (let index = 0; index < leaveData.leaves.length; index++) {
-            let timestamp = Date.parse(leaveData.leaves[index].date);
-            let dateObject = new Date(timestamp);
-            tempVacations.push(dateObject);
-        }
-        setVacationValues(tempVacations);
+        let vacationDates = [];
+        restService.getVacations(e.target.value)
+            .then(res => {
+                if (res.data.vacations) {
+                    vacationDates = res.data.vacations;
+                }
+                if (vacationDates.length > 0) {
+                    vacationDates.forEach(date => {
+                        console.log(date.vacationDate);
+                        let timestamp = Date.parse(date.vacationDate);
+                        console.log(timestamp);
+                        let dateObject = new Date(timestamp);
+                        console.log(dateObject);
+                        tempVacations.push(dateObject);
+                        setVacationValues(tempVacations);
+                    });
+                }
+            });
+
+
+
         setCurrentUser(e.target.value);
     }
 
@@ -174,9 +192,9 @@ const TrackVacation = () => {
                     </div>
                 </div>
                 {currentUser &&
-                <div className="row ms-3">
-                    {confirmVacations}
-                </div>}
+                    <div className="row ms-3">
+                        {confirmVacations}
+                    </div>}
                 {currentUser && <div className="row ms-1 mt-2">
                     <div className="col-md-6">
                         <DatePicker
