@@ -2,14 +2,30 @@ import React from "react";
 import DashBoardBox from "../DashBoardBox/DashBoardBox";
 import './Home.scss';
 import OnHoliday from "./OnHoliday/OnHoliday";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { vacationPending, leaveCount } from "../common/constants/constants";
 import { useState } from "react";
 import { useEffect } from "react";
 import VacationPending from "./VacationPending/VacationPending";
+import DashboardRestService from "../common/rest/DashboardRestService";
+import { addLeaveToday, addUsers } from "../common/redux/DashBoardSlice";
 
 const Home = () => {
+    const dispatch = useDispatch();
     let currentState = useSelector((state) => state.leaveToday);
+    const restService = new DashboardRestService();
+
+    useEffect(()=>{
+        restService.getOnLoadData()
+        .then(res => {
+            if(res.data.users){
+                dispatch(addUsers(res.data.users));
+            }
+            if(res.data.onVacationToday){
+                dispatch(addLeaveToday(res.data.onVacationToday));
+            }    
+        })
+    })
 
     const [dashboardContent, setDashBoardContent] = useState([]);
     const [tableContent, setTableContent] = useState();

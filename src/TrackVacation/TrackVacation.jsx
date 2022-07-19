@@ -66,8 +66,8 @@ const TrackVacation = () => {
      */
     const setNewVacationDateObjects = () => {
         let saveObject = {
-            gpn: currentUser,
-            leaves: []
+            userGPN: currentUser,
+            vacations: []
         }
         if (vacationValues.length > 0 && vacationValues[0] instanceof Date) {
             let myModal = new Modal(document.getElementById('noData'));
@@ -80,22 +80,22 @@ const TrackVacation = () => {
                 let newDate = {};
                 if (dateAlreadyPresent(currentDate)) {
                     newDate = {
-                        date: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
-                        planned: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].planned,
-                        type: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].type,
-                        ph: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].ph
+                        vacationDate: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
+                        vacationPlanned: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].vacationPlanned,
+                        vacationFullDay: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].vacationFullDay,
+                        publicHoliday: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].publicHoliday
                     }
                 } else {
                     newDate = {
-                        date: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
-                        planned: true,
-                        type: true,
-                        ph: false
+                        vacationDate: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
+                        vacationPlanned: true,
+                        vacationFullDay: true,
+                        publicHoliday: false
                     }
                 }
-                saveObject.leaves.push(newDate);
+                saveObject.vacations.push(newDate);
             });
-            saveObject.leaves.sort((a, b) => {
+            saveObject.vacations.sort((a, b) => {
                 let ts1 = Date.parse(a.date);
                 let date1 = new Date(ts1);
                 let ts2 = Date.parse(b.date);
@@ -111,7 +111,7 @@ const TrackVacation = () => {
 
     const refreshTableData = (saveObject, rowStart, rowLimit) => {
         let newDisplayObject = [];
-        saveObject.leaves.forEach((leave, index) => {
+        saveObject.vacations.forEach((leave, index) => {
             if (index >= rowStart && index < rowLimit) {
                 newDisplayObject.push(leave);
             }
@@ -141,9 +141,9 @@ const TrackVacation = () => {
 
     const updateLeaveType = (checked, vacationDate) => {
         let tempFinalSaveObject = finalSaveObject;
-        tempFinalSaveObject.leaves.forEach(element => {
+        tempFinalSaveObject.vacations.forEach(element => {
             if (element.date === vacationDate) {
-                element.type = checked;
+                element.vacationFullDay = checked;
             }
         });
         setFinalSaveObject(tempFinalSaveObject);
@@ -151,9 +151,9 @@ const TrackVacation = () => {
 
     const updatePlanned = (checked, vacationDate) => {
         let tempFinalSaveObject = finalSaveObject;
-        tempFinalSaveObject.leaves.forEach(element => {
+        tempFinalSaveObject.vacations.forEach(element => {
             if (element.date === vacationDate) {
-                element.planned = checked;
+                element.vacationPlanned = checked;
             }
         });
         setFinalSaveObject(tempFinalSaveObject);
@@ -161,17 +161,20 @@ const TrackVacation = () => {
 
     const updatePH = (checked, vacationDate) => {
         let tempFinalSaveObject = finalSaveObject;
-        tempFinalSaveObject.leaves.forEach(element => {
+        tempFinalSaveObject.vacations.forEach(element => {
             if (element.date === vacationDate) {
-                element.ph = checked;
+                element.publicHoliday = checked;
             }
         });
         setFinalSaveObject(tempFinalSaveObject);
     }
 
     const saveVacation = () => {
-        //API call
-        //Show save pop up and redirect to front screen
+        console.log('FinalSaveObject',finalSaveObject);
+        restService.saveVacations(finalSaveObject)
+        .then(res=>{
+            console.log(res);
+        })
         navigate('/');
     }
 
@@ -229,10 +232,10 @@ const TrackVacation = () => {
                                 <div className="col-md-12">
                                     <div className="row">
                                         <div className="col-md-12">
-                                            {finalSaveObject && finalSaveObject.leaves.length > displayLimit &&
+                                            {finalSaveObject && finalSaveObject.vacations.length > displayLimit &&
                                                 <div className="row">
                                                     <div className="col-md-3 offset-md-5">
-                                                        Showing {currentDisplayObject.length + currentRowStart} of {finalSaveObject.leaves.length} items
+                                                        Showing {currentDisplayObject.length + currentRowStart} of {finalSaveObject.vacations.length} items
                                                     </div>
                                                     <div className="col-md-2">
                                                         <button disabled={currentRowStart === 0} className="btn btn-success" onClick={() => {
@@ -243,7 +246,7 @@ const TrackVacation = () => {
                                                         }}>Show previous</button>
                                                     </div>
                                                     <div className="col-md-2">
-                                                        <button disabled={finalSaveObject && currentRowLimit >= finalSaveObject.leaves.length} className="btn btn-success" onClick={() => {
+                                                        <button disabled={finalSaveObject && currentRowLimit >= finalSaveObject.vacations.length} className="btn btn-success" onClick={() => {
                                                             setCurrentRowStart(currentRowStart + displayLimit);
                                                             setCurrentRowLimit(currentRowLimit + displayLimit);
                                                             refreshTableData(finalSaveObject, currentRowStart + displayLimit,
@@ -268,22 +271,22 @@ const TrackVacation = () => {
                                         <tbody>
                                             {currentDisplayObject && currentDisplayObject.map((vacation, index) => {
                                                 return (
-                                                    < tr key={vacation.date} >
+                                                    < tr key={vacation.vacationDate} >
                                                         <td>{currentRowStart + index + 1}</td>
-                                                        <td>{vacation.date}</td>
+                                                        <td>{vacation.vacationDate}</td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input class="form-check-input" onChange={(e) => updatePlanned(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.planned} />
+                                                                <input class="form-check-input" onChange={(e) => updatePlanned(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.vacationPlanned} />
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input class="form-check-input" onChange={(e) => updateLeaveType(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.type} />
+                                                                <input class="form-check-input" onChange={(e) => updateLeaveType(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.vacationFullDay} />
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input class="form-check-input" onChange={(e) => updatePH(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.ph} />
+                                                                <input class="form-check-input" onChange={(e) => updatePH(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.publicHoliday} />
                                                             </div>
                                                         </td>
                                                     </tr>

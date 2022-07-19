@@ -1,36 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React from "react";
 import Home from "../Home/Home";
 import SidePanel from "../SidePanel/SidePanel";
 import TrackVacation from "../TrackVacation/TrackVacation";
 import './LandingPage.scss';
-import initialLoad from '../temp/initialLoad.json';
-import { useDispatch } from "react-redux";
-import { addLeaveToday, addUsers } from "../common/redux/DashBoardSlice";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import DashboardRestService from "../common/rest/DashboardRestService";
 
 const LandingPage = () => {
 
-    const dispatch = useDispatch();
-    const dashboardName = process.env.REACT_APP_DASHBOARD_NAME;
-    const restService = new DashboardRestService();
-
-
-    useEffect(() => {
-        restService.getOnLoadData()
-        .then(res => {
-            console.log(res.data);
-            if(res.data.users){
-                dispatch(addUsers(res.data.users));
-            }
-            if(res.data.onVacationToday){
-                dispatch(addLeaveToday(res.data.onVacationToday));
-            }    
-        })
-        
-        
-    }, []);
+   const dashboardName = process.env.REACT_APP_DASHBOARD_NAME;
 
 
     return (
