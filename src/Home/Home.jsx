@@ -25,7 +25,7 @@ const Home = () => {
                 dispatch(addLeaveToday(res.data.onVacationToday));
             }    
         })
-    })
+    },[]);
 
     const [dashboardContent, setDashBoardContent] = useState([]);
     const [tableContent, setTableContent] = useState();

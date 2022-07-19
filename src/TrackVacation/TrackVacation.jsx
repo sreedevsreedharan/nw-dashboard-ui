@@ -4,7 +4,6 @@ import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { useSelector } from "react-redux";
 import { cancel, confirmVacations, selectEmployee, submit } from "../common/constants/constants";
 import './TrackVacation.scss';
-import leaveData from '../temp/leave.json';
 import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
 import DashboardRestService from "../common/rest/DashboardRestService";
@@ -72,22 +71,26 @@ const TrackVacation = () => {
         if (vacationValues.length > 0 && vacationValues[0] instanceof Date) {
             let myModal = new Modal(document.getElementById('noData'));
             myModal.show();
+        } else if(vacationValues.length === 0){
+            let myModal = new Modal(document.getElementById('removeAll'));
+            myModal.show();
         } else {
             let myModal = new Modal(document.getElementById('leaveType'));
             myModal.show();
             vacationValues.forEach(vacation => {
-                const currentDate = `${vacation.month.number > 9 ? vacation.month.number : `0${vacation.month.number}`}/${vacation.day > 9 ? vacation.day : `0${vacation.day}`}/${vacation.year}`;
+                console.log(vacation);
+                const currentDate = `${vacation.year}-${vacation.month.number > 9 ? vacation.month.number : `0${vacation.month.number}`}-${vacation.day > 9 ? vacation.day : `0${vacation.day}`}`;
                 let newDate = {};
                 if (dateAlreadyPresent(currentDate)) {
                     newDate = {
-                        vacationDate: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
-                        vacationPlanned: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].vacationPlanned,
-                        vacationFullDay: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].vacationFullDay,
-                        publicHoliday: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].publicHoliday
+                        vacationDate: currentDate,
+                        vacationPlanned: vacationValues[getAlreadyDatePresentIndex(currentDate)].vacationPlanned,
+                        vacationFullDay: vacationValues[getAlreadyDatePresentIndex(currentDate)].vacationFullDay,
+                        publicHoliday: vacationValues[getAlreadyDatePresentIndex(currentDate)].publicHoliday
                     }
                 } else {
                     newDate = {
-                        vacationDate: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
+                        vacationDate: currentDate,
                         vacationPlanned: true,
                         vacationFullDay: true,
                         publicHoliday: false
@@ -104,7 +107,6 @@ const TrackVacation = () => {
             });
             setFinalSaveObject(saveObject);
             refreshTableData(saveObject, currentRowStart, currentRowLimit);
-
         }
 
     }
@@ -120,8 +122,8 @@ const TrackVacation = () => {
     }
 
     const dateAlreadyPresent = (edittingDate) => {
-        let alreadyExists = false;
-        leaveData.leaves.forEach((element, index) => {
+        let alreadyExists = false;        
+        vacationValues.forEach((element, index) => {
             if (element.date === edittingDate) {
                 alreadyExists = true;
             }
@@ -131,7 +133,7 @@ const TrackVacation = () => {
 
     const getAlreadyDatePresentIndex = (edittingDate) => {
         let returnIndex = 0;
-        leaveData.leaves.forEach((element, index) => {
+        vacationValues.forEach((element, index) => {
             if (element.date === edittingDate) {
                 returnIndex = index;
             }
@@ -170,12 +172,17 @@ const TrackVacation = () => {
     }
 
     const saveVacation = () => {
-        console.log('FinalSaveObject',finalSaveObject);
         restService.saveVacations(finalSaveObject)
         .then(res=>{
-            console.log(res);
+            console.log(res)
+            let myModal = new Modal(document.getElementById('saveSuccess'));
+            myModal.show();
         })
-        navigate('/');
+        .catch(error=>{
+            let myModal = new Modal(document.getElementById('saveFail'));
+            myModal.show();
+        })
+        
     }
 
 
@@ -316,6 +323,54 @@ const TrackVacation = () => {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="removeAll" tabindex="-1" role="dialog" aria-labelledby="removeAll" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Please insert some vacation dates
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="saveSuccess" tabindex="-1" role="dialog" aria-labelledby="saveSuccess" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Success</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Vacation dates saved succesfully
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" onClick={()=> navigate('/')}  class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="saveFail" tabindex="-1" role="dialog" aria-labelledby="saveFail" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Unable to save the vacations. Please try after sometime
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" onClick={()=> navigate('/')} class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>
