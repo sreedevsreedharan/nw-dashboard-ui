@@ -114,7 +114,6 @@ const TrackVacation = () => {
             setFinalSaveObject(saveObject);
             refreshTableData(saveObject, currentRowStart, currentRowLimit);
         }
-
     }
 
     const refreshTableData = (saveObject, rowStart, rowLimit) => {
@@ -177,22 +176,51 @@ const TrackVacation = () => {
         setFinalSaveObject(tempFinalSaveObject);
     }
 
+    const isCurrentMonthsChangesPresent = () =>{
+        let monthArray = [];
+        if(finalSaveObject && finalSaveObject.vacations.length>0){
+            finalSaveObject.vacations.forEach(vacation => {
+                let ts = Date.parse(vacation.vacationDate);
+                let date = new Date(ts);
+                console.log(date);
+                monthArray.push(date.getMonth()+1);
+            });
+        }
+        const currentMonth = ((new Date()).getMonth())+1;
+        console.log('currentMonth',currentMonth);
+        console.log('monthArray',monthArray);
+        if(monthArray.includes(currentMonth)){
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
     const saveVacation = () => {
-        restService.saveVacations(finalSaveObject)
-        .then(res=>{
-            console.log(res)
-            let myModal = new Modal(document.getElementById('messageModal'));
-            setModalHeader("Success");
-            setModalBody("Vacation dates saved succesfully"); 
-            setNavigate(true);      
-            myModal.show();
-        })
-        .catch(error=>{
+        if(isCurrentMonthsChangesPresent()){
+            restService.saveVacations(finalSaveObject)
+            .then(res=>{
+                console.log(res)
+                let myModal = new Modal(document.getElementById('messageModal'));
+                setModalHeader("Success");
+                setModalBody("Vacation dates saved succesfully"); 
+                setNavigate(true);      
+                myModal.show();
+            })
+            .catch(error=>{
+                let myModal = new Modal(document.getElementById('messageModal'));
+                myModal.show();
+                setModalHeader("Error");
+                setModalBody("Unable to save the vacations. Please try after sometime");  
+            })
+        } else{
             let myModal = new Modal(document.getElementById('messageModal'));
             myModal.show();
             setModalHeader("Error");
-            setModalBody("Unable to save the vacations. Please try after sometime");  
-        })
+            setModalBody("Please insert some vacation dates for current month");
+        }
+        
         
     }
 
