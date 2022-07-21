@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { useSelector } from "react-redux";
@@ -19,14 +19,16 @@ const TrackVacation = () => {
     const [currentRowLimit, setCurrentRowLimit] = useState(displayLimit);
     const [currentDisplayObject, setCurrentDisplayObject] = useState([]);
     const restService = new DashboardRestService();
+    const [modalHeader, setModalHeader] = useState('');
+    const [modalBody, setModalBody] = useState('');
+    const [isNavigate, setNavigate] = useState(false);
 
-    /**
-     *  API response contains all the leave details. Extracting just date from that for
-     * setting to calendar
-     */
-    useEffect(() => {
-
-    }, []);
+    const messageModalClick = () =>{
+        if(isNavigate){
+            navigate("/");
+            isNavigate(false);
+        }
+    }
 
 
     /**
@@ -69,11 +71,15 @@ const TrackVacation = () => {
             vacations: []
         }
         if (vacationValues.length > 0 && vacationValues[0] instanceof Date) {
-            let myModal = new Modal(document.getElementById('noData'));
+            let myModal = new Modal(document.getElementById('messageModal'));
             myModal.show();
+            setModalHeader("Error");
+            setModalBody("No data to save. Please enter some vacation dates");            
         } else if(vacationValues.length === 0){
-            let myModal = new Modal(document.getElementById('removeAll'));
+            let myModal = new Modal(document.getElementById('messageModal'));
             myModal.show();
+            setModalHeader("Error");
+            setModalBody("Please insert some vacation dates");
         } else {
             let myModal = new Modal(document.getElementById('leaveType'));
             myModal.show();
@@ -175,12 +181,17 @@ const TrackVacation = () => {
         restService.saveVacations(finalSaveObject)
         .then(res=>{
             console.log(res)
-            let myModal = new Modal(document.getElementById('saveSuccess'));
+            let myModal = new Modal(document.getElementById('messageModal'));
+            setModalHeader("Success");
+            setModalBody("Vacation dates saved succesfully"); 
+            setNavigate(true);      
             myModal.show();
         })
         .catch(error=>{
-            let myModal = new Modal(document.getElementById('saveFail'));
+            let myModal = new Modal(document.getElementById('messageModal'));
             myModal.show();
+            setModalHeader("Error");
+            setModalBody("Unable to save the vacations. Please try after sometime");  
         })
         
     }
@@ -310,72 +321,23 @@ const TrackVacation = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal fade" id="noData" tabindex="-1" role="dialog" aria-labelledby="noData" aria-hidden="true">
+            </div>            
+            <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">{modalHeader}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            No data to save. Please enter some vacation dates
+                            {modalBody}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                            <button type="button" class="btn btn-secondary" onClick={messageModalClick} data-bs-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal fade" id="removeAll" tabindex="-1" role="dialog" aria-labelledby="removeAll" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Please insert some vacation dates
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="saveSuccess" tabindex="-1" role="dialog" aria-labelledby="saveSuccess" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Success</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Vacation dates saved succesfully
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" onClick={()=> navigate('/')}  class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="saveFail" tabindex="-1" role="dialog" aria-labelledby="saveFail" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Unable to save the vacations. Please try after sometime
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" onClick={()=> navigate('/')} class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </div>        
         </div >
     )
 }
