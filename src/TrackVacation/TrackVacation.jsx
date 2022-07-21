@@ -7,6 +7,7 @@ import './TrackVacation.scss';
 import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
 import DashboardRestService from "../common/rest/DashboardRestService";
+import Spinner from "../common/Spinner/Spinner";
 
 const TrackVacation = () => {
     const displayLimit = 6;
@@ -22,9 +23,10 @@ const TrackVacation = () => {
     const [modalHeader, setModalHeader] = useState('');
     const [modalBody, setModalBody] = useState('');
     const [isNavigate, setNavigate] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false);
 
-    const messageModalClick = () =>{
-        if(isNavigate){
+    const messageModalClick = () => {
+        if (isNavigate) {
             navigate("/");
             isNavigate(false);
         }
@@ -36,6 +38,7 @@ const TrackVacation = () => {
      * @param {} e 
      */
     const userChanged = (e) => {
+        setShowSpinner(true);
         setVacationValues([]);
         let tempVacations = [];
         let vacationDates = [];
@@ -55,6 +58,10 @@ const TrackVacation = () => {
                         setVacationValues(tempVacations);
                     });
                 }
+                setShowSpinner(false);
+            })
+            .catch(error=>{
+                setShowSpinner(false);
             });
 
 
@@ -74,8 +81,8 @@ const TrackVacation = () => {
             let myModal = new Modal(document.getElementById('messageModal'));
             myModal.show();
             setModalHeader("Error");
-            setModalBody("No data to save. Please enter some vacation dates");            
-        } else if(vacationValues.length === 0){
+            setModalBody("No data to save. Please enter some vacation dates");
+        } else if (vacationValues.length === 0) {
             let myModal = new Modal(document.getElementById('messageModal'));
             myModal.show();
             setModalHeader("Error");
@@ -127,7 +134,7 @@ const TrackVacation = () => {
     }
 
     const dateAlreadyPresent = (edittingDate) => {
-        let alreadyExists = false;        
+        let alreadyExists = false;
         vacationValues.forEach((element, index) => {
             if (element.date === edittingDate) {
                 alreadyExists = true;
@@ -176,57 +183,61 @@ const TrackVacation = () => {
         setFinalSaveObject(tempFinalSaveObject);
     }
 
-    const isCurrentMonthsChangesPresent = () =>{
+    const isCurrentMonthsChangesPresent = () => {
         let monthArray = [];
-        if(finalSaveObject && finalSaveObject.vacations.length>0){
+        if (finalSaveObject && finalSaveObject.vacations.length > 0) {
             finalSaveObject.vacations.forEach(vacation => {
                 let ts = Date.parse(vacation.vacationDate);
                 let date = new Date(ts);
                 console.log(date);
-                monthArray.push(date.getMonth()+1);
+                monthArray.push(date.getMonth() + 1);
             });
         }
-        const currentMonth = ((new Date()).getMonth())+1;
-        console.log('currentMonth',currentMonth);
-        console.log('monthArray',monthArray);
-        if(monthArray.includes(currentMonth)){
+        const currentMonth = ((new Date()).getMonth()) + 1;
+        console.log('currentMonth', currentMonth);
+        console.log('monthArray', monthArray);
+        if (monthArray.includes(currentMonth)) {
             return true;
         } else {
             return false;
         }
-        
+
     }
 
     const saveVacation = () => {
-        if(isCurrentMonthsChangesPresent()){
+        if (isCurrentMonthsChangesPresent()) {
+            setShowSpinner(true);
             restService.saveVacations(finalSaveObject)
-            .then(res=>{
-                console.log(res)
-                let myModal = new Modal(document.getElementById('messageModal'));
-                setModalHeader("Success");
-                setModalBody("Vacation dates saved succesfully"); 
-                setNavigate(true);      
-                myModal.show();
-            })
-            .catch(error=>{
-                let myModal = new Modal(document.getElementById('messageModal'));
-                myModal.show();
-                setModalHeader("Error");
-                setModalBody("Unable to save the vacations. Please try after sometime");  
-            })
-        } else{
+                .then(res => {
+                    console.log(res)
+                    let myModal = new Modal(document.getElementById('messageModal'));
+                    setModalHeader("Success");
+                    setModalBody("Vacation dates saved succesfully");
+                    setNavigate(true);
+                    myModal.show();
+                    setShowSpinner(false);
+                })
+                .catch(error => {
+                    let myModal = new Modal(document.getElementById('messageModal'));
+                    myModal.show();
+                    setModalHeader("Error");
+                    setModalBody("Unable to save the vacations. Please try after sometime");
+                    setShowSpinner(false);
+                })
+        } else {
             let myModal = new Modal(document.getElementById('messageModal'));
             myModal.show();
             setModalHeader("Error");
             setModalBody("Please insert some vacation dates for current month");
         }
-        
-        
+
+
     }
 
 
     return (
         <div className="row mt-4">
+            {showSpinner && <Spinner />}
             <div className="col-md-12">
                 <div className="row mt-3 mb-3 ms-3">
                     <div className="col-md-12">
@@ -248,6 +259,7 @@ const TrackVacation = () => {
                     <div className="col-md-6">
                         <DatePicker
                             multiple
+                            shadow
                             numberOfMonths={2}
                             value={vacationValues}
                             onChange={setVacationValues}
@@ -349,7 +361,7 @@ const TrackVacation = () => {
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
             <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -365,7 +377,8 @@ const TrackVacation = () => {
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div>
+            
         </div >
     )
 }
