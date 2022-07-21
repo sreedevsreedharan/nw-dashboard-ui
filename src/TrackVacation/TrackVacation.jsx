@@ -371,15 +371,15 @@ const TrackVacation = () => {
             <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class={modalHeader==="Error"?'modal-header modal-error':'modal-header modal-success'}>
                             <h5 class="modal-title" id="exampleModalLabel">{modalHeader}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body p-5">
                             {modalBody}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onClick={messageModalClick} data-bs-dismiss="modal">OK</button>
+                            <button type="button" class="btn btn-secondary ps-5 pe-5" onClick={messageModalClick} data-bs-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>
