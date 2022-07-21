@@ -16,7 +16,7 @@ const Spinner = () => {
     return (
         <div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="spinnerModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content modal-content-spinner">
                     <div class="modal-body">
                         <div className="text-center mt-5 p-3">
                             <div class="spinner-grow text-dashboard" role="status">

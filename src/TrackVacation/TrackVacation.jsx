@@ -60,7 +60,12 @@ const TrackVacation = () => {
                 }
                 setShowSpinner(false);
             })
-            .catch(error=>{
+            .catch(error => {
+                let myModal = new Modal(document.getElementById('messageModal'));
+                myModal.show();
+                setModalHeader("Error");
+                setModalBody("Unable to load data. Please try after sometime");
+                setNavigate(true);
                 setShowSpinner(false);
             });
 
@@ -223,6 +228,7 @@ const TrackVacation = () => {
                     setModalHeader("Error");
                     setModalBody("Unable to save the vacations. Please try after sometime");
                     setShowSpinner(false);
+                    setNavigate(true);
                 })
         } else {
             let myModal = new Modal(document.getElementById('messageModal'));
@@ -378,7 +384,7 @@ const TrackVacation = () => {
                     </div>
                 </div>
             </div>
-            
+
         </div >
     )
 }
