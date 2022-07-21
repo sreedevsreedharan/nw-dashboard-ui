@@ -8,7 +8,7 @@ export default class DashboardRestService {
     }
 
     getVacations = (gpn) => {
-        return axios.get(`http://localhost:8081/dashboard/v1/${gpn}/vacations`);
+        return axios.get(`http://localhost:8080/dashboard/v1/${gpn}/vacations`);
     }
 
     saveVacations = (saveObject) => {

@@ -9,7 +9,7 @@ const Spinner = () => {
         let myModal = new Modal(document.getElementById('spinnerModal'));
         myModal.show();
         return () => {
-            myModal.hide();
+            myModal.dispose();
         };
     }, []);
 
