@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { useSelector } from "react-redux";
 import { cancel, confirmVacations, selectEmployee, submit } from "../common/constants/constants";
 import './TrackVacation.scss';
-import leaveData from '../temp/leave.json';
 import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
+import DashboardRestService from "../common/rest/DashboardRestService";
+import Spinner from "../common/Spinner/Spinner";
 
 const TrackVacation = () => {
     const displayLimit = 6;
@@ -18,14 +19,18 @@ const TrackVacation = () => {
     const [currentRowStart, setCurrentRowStart] = useState(0);
     const [currentRowLimit, setCurrentRowLimit] = useState(displayLimit);
     const [currentDisplayObject, setCurrentDisplayObject] = useState([]);
+    const restService = new DashboardRestService();
+    const [modalHeader, setModalHeader] = useState('');
+    const [modalBody, setModalBody] = useState('');
+    const [isNavigate, setNavigate] = useState(false);
+    const [showSpinner, setShowSpinner] = useState(false);
 
-    /**
-     *  API response contains all the leave details. Extracting just date from that for
-     * setting to calendar
-     */
-    useEffect(() => {
-        
-    }, []);
+    const messageModalClick = () => {
+        if (isNavigate) {
+            navigate("/");
+            isNavigate(false);
+        }
+    }
 
 
     /**
@@ -33,13 +38,39 @@ const TrackVacation = () => {
      * @param {} e 
      */
     const userChanged = (e) => {
+        setShowSpinner(true);
+        setVacationValues([]);
         let tempVacations = [];
-        for (let index = 0; index < leaveData.leaves.length; index++) {
-            let timestamp = Date.parse(leaveData.leaves[index].date);
-            let dateObject = new Date(timestamp);
-            tempVacations.push(dateObject);
-        }
-        setVacationValues(tempVacations);
+        let vacationDates = [];
+        restService.getVacations(e.target.value)
+            .then(res => {
+                if (res.data.vacations) {
+                    vacationDates = res.data.vacations;
+                }
+                if (vacationDates.length > 0) {
+                    vacationDates.forEach(date => {
+                        console.log(date.vacationDate);
+                        let timestamp = Date.parse(date.vacationDate);
+                        console.log(timestamp);
+                        let dateObject = new Date(timestamp);
+                        console.log(dateObject);
+                        tempVacations.push(dateObject);
+                        setVacationValues(tempVacations);
+                    });
+                }
+                setShowSpinner(false);
+            })
+            .catch(error => {
+                let myModal = new Modal(document.getElementById('messageModal'));
+                myModal.show();
+                setModalHeader("Error");
+                setModalBody("Unable to load data. Please try after sometime");
+                setNavigate(true);
+                setShowSpinner(false);
+            });
+
+
+
         setCurrentUser(e.target.value);
     }
 
@@ -48,36 +79,44 @@ const TrackVacation = () => {
      */
     const setNewVacationDateObjects = () => {
         let saveObject = {
-            gpn: currentUser,
-            leaves: []
+            userGPN: currentUser,
+            vacations: []
         }
         if (vacationValues.length > 0 && vacationValues[0] instanceof Date) {
-            let myModal = new Modal(document.getElementById('noData'));
+            let myModal = new Modal(document.getElementById('messageModal'));
             myModal.show();
+            setModalHeader("Error");
+            setModalBody("No data to save. Please enter some vacation dates");
+        } else if (vacationValues.length === 0) {
+            let myModal = new Modal(document.getElementById('messageModal'));
+            myModal.show();
+            setModalHeader("Error");
+            setModalBody("Please insert some vacation dates");
         } else {
             let myModal = new Modal(document.getElementById('leaveType'));
             myModal.show();
             vacationValues.forEach(vacation => {
-                const currentDate = `${vacation.month.number > 9 ? vacation.month.number : `0${vacation.month.number}`}/${vacation.day > 9 ? vacation.day : `0${vacation.day}`}/${vacation.year}`;
+                console.log(vacation);
+                const currentDate = `${vacation.year}-${vacation.month.number > 9 ? vacation.month.number : `0${vacation.month.number}`}-${vacation.day > 9 ? vacation.day : `0${vacation.day}`}`;
                 let newDate = {};
                 if (dateAlreadyPresent(currentDate)) {
                     newDate = {
-                        date: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
-                        planned: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].planned,
-                        type: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].type,
-                        ph: leaveData.leaves[getAlreadyDatePresentIndex(currentDate)].ph
+                        vacationDate: currentDate,
+                        vacationPlanned: vacationValues[getAlreadyDatePresentIndex(currentDate)].vacationPlanned,
+                        vacationFullDay: vacationValues[getAlreadyDatePresentIndex(currentDate)].vacationFullDay,
+                        publicHoliday: vacationValues[getAlreadyDatePresentIndex(currentDate)].publicHoliday
                     }
                 } else {
                     newDate = {
-                        date: `${vacation.month.number}/${vacation.day}/${vacation.year}`,
-                        planned: true,
-                        type: true,
-                        ph: false
+                        vacationDate: currentDate,
+                        vacationPlanned: true,
+                        vacationFullDay: true,
+                        publicHoliday: false
                     }
                 }
-                saveObject.leaves.push(newDate);
+                saveObject.vacations.push(newDate);
             });
-            saveObject.leaves.sort((a, b) => {
+            saveObject.vacations.sort((a, b) => {
                 let ts1 = Date.parse(a.date);
                 let date1 = new Date(ts1);
                 let ts2 = Date.parse(b.date);
@@ -86,14 +125,12 @@ const TrackVacation = () => {
             });
             setFinalSaveObject(saveObject);
             refreshTableData(saveObject, currentRowStart, currentRowLimit);
-
         }
-
     }
 
     const refreshTableData = (saveObject, rowStart, rowLimit) => {
         let newDisplayObject = [];
-        saveObject.leaves.forEach((leave, index) => {
+        saveObject.vacations.forEach((leave, index) => {
             if (index >= rowStart && index < rowLimit) {
                 newDisplayObject.push(leave);
             }
@@ -103,7 +140,7 @@ const TrackVacation = () => {
 
     const dateAlreadyPresent = (edittingDate) => {
         let alreadyExists = false;
-        leaveData.leaves.forEach((element, index) => {
+        vacationValues.forEach((element, index) => {
             if (element.date === edittingDate) {
                 alreadyExists = true;
             }
@@ -113,7 +150,7 @@ const TrackVacation = () => {
 
     const getAlreadyDatePresentIndex = (edittingDate) => {
         let returnIndex = 0;
-        leaveData.leaves.forEach((element, index) => {
+        vacationValues.forEach((element, index) => {
             if (element.date === edittingDate) {
                 returnIndex = index;
             }
@@ -123,9 +160,9 @@ const TrackVacation = () => {
 
     const updateLeaveType = (checked, vacationDate) => {
         let tempFinalSaveObject = finalSaveObject;
-        tempFinalSaveObject.leaves.forEach(element => {
+        tempFinalSaveObject.vacations.forEach(element => {
             if (element.date === vacationDate) {
-                element.type = checked;
+                element.vacationFullDay = checked;
             }
         });
         setFinalSaveObject(tempFinalSaveObject);
@@ -133,9 +170,9 @@ const TrackVacation = () => {
 
     const updatePlanned = (checked, vacationDate) => {
         let tempFinalSaveObject = finalSaveObject;
-        tempFinalSaveObject.leaves.forEach(element => {
+        tempFinalSaveObject.vacations.forEach(element => {
             if (element.date === vacationDate) {
-                element.planned = checked;
+                element.vacationPlanned = checked;
             }
         });
         setFinalSaveObject(tempFinalSaveObject);
@@ -143,43 +180,92 @@ const TrackVacation = () => {
 
     const updatePH = (checked, vacationDate) => {
         let tempFinalSaveObject = finalSaveObject;
-        tempFinalSaveObject.leaves.forEach(element => {
+        tempFinalSaveObject.vacations.forEach(element => {
             if (element.date === vacationDate) {
-                element.ph = checked;
+                element.publicHoliday = checked;
             }
         });
         setFinalSaveObject(tempFinalSaveObject);
     }
 
+    const isCurrentMonthsChangesPresent = () => {
+        let monthArray = [];
+        if (finalSaveObject && finalSaveObject.vacations.length > 0) {
+            finalSaveObject.vacations.forEach(vacation => {
+                let ts = Date.parse(vacation.vacationDate);
+                let date = new Date(ts);
+                console.log(date);
+                monthArray.push(date.getMonth() + 1);
+            });
+        }
+        const currentMonth = ((new Date()).getMonth()) + 1;
+        console.log('currentMonth', currentMonth);
+        console.log('monthArray', monthArray);
+        if (monthArray.includes(currentMonth)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     const saveVacation = () => {
-        //API call
-        //Show save pop up and redirect to front screen
-        navigate('/');
+        if (isCurrentMonthsChangesPresent()) {
+            setShowSpinner(true);
+            restService.saveVacations(finalSaveObject)
+                .then(res => {
+                    console.log(res)
+                    let myModal = new Modal(document.getElementById('messageModal'));
+                    setModalHeader("Success");
+                    setModalBody("Vacation dates saved succesfully");
+                    setNavigate(true);
+                    myModal.show();
+                    setShowSpinner(false);
+                })
+                .catch(error => {
+                    let myModal = new Modal(document.getElementById('messageModal'));
+                    myModal.show();
+                    setModalHeader("Error");
+                    setModalBody("Unable to save the vacations. Please try after sometime");
+                    setShowSpinner(false);
+                    setNavigate(true);
+                })
+        } else {
+            let myModal = new Modal(document.getElementById('messageModal'));
+            myModal.show();
+            setModalHeader("Error");
+            setModalBody("Please insert some vacation dates for current month");
+        }
+
+
     }
 
 
     return (
         <div className="row mt-4">
+            {showSpinner && <Spinner />}
             <div className="col-md-12">
                 <div className="row mt-3 mb-3 ms-3">
-                    <div className="col-md-12">                
+                    <div className="col-md-12">
                         <select value={currentUser} className="drop-down mb-3" onChange={(e) => userChanged(e)}>
                             <option selected>{selectEmployee}</option>
                             {currentState.users.map(user => {
                                 return (
-                                    <option key={user.GPN} value={user.GPN}>{user.name}</option>
+                                    <option key={user.userGPN} value={user.userGPN}>{user.userName}</option>
                                 )
                             })}
                         </select>
                     </div>
                 </div>
-                <div className="row ms-3">
-                    {confirmVacations}
-                </div>
-                <div className="row ms-1 mt-2">
+                {currentUser &&
+                    <div className="row ms-3">
+                        {confirmVacations}
+                    </div>}
+                {currentUser && <div className="row ms-1 mt-2">
                     <div className="col-md-6">
                         <DatePicker
                             multiple
+                            shadow
                             numberOfMonths={2}
                             value={vacationValues}
                             onChange={setVacationValues}
@@ -188,15 +274,15 @@ const TrackVacation = () => {
                             ]}
                         />
                     </div>
-                </div>
-                <div className="row mt-5 ms-3">
+                </div>}
+                {currentUser && <div className="row mt-5 ms-3">
                     <div className="col-md-1">
                         <button disabled={!currentUser} className="btn bg-blue" onClick={setNewVacationDateObjects}>{submit}</button>
                     </div>
                     <div className="col-md-1">
                         <button disabled={!currentUser} className="btn btn-secondary">{cancel}</button>
                     </div>
-                </div>
+                </div>}
             </div>
             <div class="modal fade" id="leaveType" tabindex="-1" role="dialog" aria-labelledby="leaveType" aria-hidden="true">
                 <div class="modal-dialog modal-xl" role="document">
@@ -210,10 +296,10 @@ const TrackVacation = () => {
                                 <div className="col-md-12">
                                     <div className="row">
                                         <div className="col-md-12">
-                                            {finalSaveObject && finalSaveObject.leaves.length > displayLimit &&
+                                            {finalSaveObject && finalSaveObject.vacations.length > displayLimit &&
                                                 <div className="row">
                                                     <div className="col-md-3 offset-md-5">
-                                                        Showing {currentDisplayObject.length + currentRowStart} of {finalSaveObject.leaves.length} items
+                                                        Showing {currentDisplayObject.length + currentRowStart} of {finalSaveObject.vacations.length} items
                                                     </div>
                                                     <div className="col-md-2">
                                                         <button disabled={currentRowStart === 0} className="btn btn-success" onClick={() => {
@@ -224,7 +310,7 @@ const TrackVacation = () => {
                                                         }}>Show previous</button>
                                                     </div>
                                                     <div className="col-md-2">
-                                                        <button disabled={finalSaveObject && currentRowLimit >= finalSaveObject.leaves.length} className="btn btn-success" onClick={() => {
+                                                        <button disabled={finalSaveObject && currentRowLimit >= finalSaveObject.vacations.length} className="btn btn-success" onClick={() => {
                                                             setCurrentRowStart(currentRowStart + displayLimit);
                                                             setCurrentRowLimit(currentRowLimit + displayLimit);
                                                             refreshTableData(finalSaveObject, currentRowStart + displayLimit,
@@ -249,22 +335,22 @@ const TrackVacation = () => {
                                         <tbody>
                                             {currentDisplayObject && currentDisplayObject.map((vacation, index) => {
                                                 return (
-                                                    < tr key={vacation.date} >
+                                                    < tr key={vacation.vacationDate} >
                                                         <td>{currentRowStart + index + 1}</td>
-                                                        <td>{vacation.date}</td>
+                                                        <td>{vacation.vacationDate}</td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input class="form-check-input" onChange={(e) => updatePlanned(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.planned} />
+                                                                <input class="form-check-input" onChange={(e) => updatePlanned(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.vacationPlanned} />
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input class="form-check-input" onChange={(e) => updateLeaveType(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.type} />
+                                                                <input class="form-check-input" onChange={(e) => updateLeaveType(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.vacationFullDay} />
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="form-check form-switch">
-                                                                <input class="form-check-input" onChange={(e) => updatePH(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.ph} />
+                                                                <input class="form-check-input" onChange={(e) => updatePH(e.target.checked, vacation.date)} type="checkbox" id="flexSwitchCheckChecked" defaultChecked={vacation.publicHoliday} />
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -282,18 +368,18 @@ const TrackVacation = () => {
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="noData" tabindex="-1" role="dialog" aria-labelledby="noData" aria-hidden="true">
+            <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                        <div class={modalHeader==="Error"?'modal-header modal-error':'modal-header modal-success'}>
+                            <h5 class="modal-title" id="exampleModalLabel">{modalHeader}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            No data to save. Please enter some vacation dates
+                        <div class="modal-body p-5">
+                            {modalBody}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+                            <button type="button" class="btn btn-secondary ps-5 pe-5" onClick={messageModalClick} data-bs-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>

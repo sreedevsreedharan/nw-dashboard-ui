@@ -4,6 +4,7 @@ import { vacationPending, vacationPendingHeaders } from "../../common/constants/
 
 const VacationPending = () => {
     let currentState = useSelector((state) => state.leaveToday);
+    
     return (
         <div className="col-md-12">
             <div>
@@ -12,23 +13,28 @@ const VacationPending = () => {
             <table className="table mt-5">
                 <thead>
                     <tr>
-                        {vacationPendingHeaders.map(header=>{
-                            return(
+                        {vacationPendingHeaders.map(header => {
+                            return (
                                 <th>{header}</th>
                             )
-                        })}                    
+                        })}
                     </tr>
                 </thead>
                 <tbody>
-                    {currentState.vacationPending.map((user, index) => {
-                        return (
-                            <tr key={user.id}>
-                                <td>{index+1}</td>
-                                <td>{user.name}</td>
-                                <td>{user.team}</td>                                
-                            </tr>
-                        )
-                    })}                    
+                    {currentState.users.map((user, index) => {
+                        if (!user.vacation) {
+                            return (
+                                <tr key={user.userGPN}>
+                                    <td>{index + 1}</td>
+                                    <td>{user.userName}</td>
+                                    <td>{user.userGPN}</td>
+                                    <td>{user.userProjectName}</td>
+                                </tr>
+                            )
+
+                        }
+
+                    })}
                 </tbody>
             </table>
         </div>

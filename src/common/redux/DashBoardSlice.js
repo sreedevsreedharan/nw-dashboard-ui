@@ -3,8 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   users:[],
-  leaveToday:[],
-  vacationPending:[]
+  leaveToday:[]
 }
 
 export const DashBoardSlice = createSlice({
@@ -16,13 +15,10 @@ export const DashBoardSlice = createSlice({
     },
     addLeaveToday: (state, value) => {
       state.leaveToday = value.payload;
-    },
-    addVacationPending: (state, value) => {
-      state.vacationPending = value.payload;
-    }
+    }    
   },
 })
 
-export const { addUsers, addLeaveToday, addVacationPending} = DashBoardSlice.actions
+export const { addUsers, addLeaveToday} = DashBoardSlice.actions
 
 export default DashBoardSlice.reducer

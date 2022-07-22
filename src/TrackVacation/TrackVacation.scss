@@ -18,6 +18,22 @@
 .bg-blue{
     background-color: #2B4F8D;
     color:white;
-  }
+}
+
+.modal-error{
+    background-color: red;
+    color: white;
+}
+
+.modal-success{
+    background-color: green;
+    color: white;
+}
+
+.modal-footer{
+    justify-content: center !important;
+    border-top: none;
+}
+
 
   
