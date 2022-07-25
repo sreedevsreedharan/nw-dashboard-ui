@@ -1,6 +1,5 @@
 import React from "react";
 import DashBoardBox from "../DashBoardBox/DashBoardBox";
-import './Home.scss';
 import OnHoliday from "./OnHoliday/OnHoliday";
 import { useDispatch, useSelector } from 'react-redux';
 import { vacationPending, leaveCount } from "../common/constants/constants";

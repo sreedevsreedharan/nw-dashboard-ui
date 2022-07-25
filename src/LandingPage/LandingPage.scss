@@ -1,13 +1,15 @@
+@import '../common/scss/theme.scss';
+
 .landing-page-parent{
     min-height: 100vh;
 
     .header{
         font-size: xx-large;
-        background-color: #2B4F8D;
-        color: white;
+        background-color: $dashboard-color;
+        color: $dashboard-font;
     }
     .side-panel-parent{
         min-height: 100vh;
-        background-color: #2B4F8D;
+        background-color: $dashboard-color;
     }
 }

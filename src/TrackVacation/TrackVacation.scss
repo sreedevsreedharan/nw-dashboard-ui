@@ -1,6 +1,8 @@
+@import '../common/scss/theme.scss';
+
 .bg-header{
-    background-color: #2B4F8D;
-    color: white;
+    background-color: $dashboard-color;
+    color: $dashboard-font;
 }
 .rmdp-input{
     width: 900px;
@@ -10,24 +12,24 @@
 
 .drop-down{
     padding: 10px; 
-    background:#2B4F8D; 
+    background:$dashboard-color; 
     border:none;
-    color: white;
+    color: $dashboard-font;
 }
 
 .bg-blue{
-    background-color: #2B4F8D;
-    color:white;
+    background-color: $dashboard-color;
+    color:$dashboard-font;
 }
 
 .modal-error{
-    background-color: red;
-    color: white;
+    background-color: $error-header;
+    color: $dashboard-font;
 }
 
 .modal-success{
-    background-color: green;
-    color: white;
+    background-color: $success-header;
+    color: $dashboard-font;
 }
 
 .modal-footer{

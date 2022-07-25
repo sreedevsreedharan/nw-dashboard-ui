@@ -4,6 +4,7 @@ import { vacationPending, vacationPendingHeaders } from "../../common/constants/
 
 const VacationPending = () => {
     let currentState = useSelector((state) => state.leaveToday);
+    let currentIndex = 0;
     
     return (
         <div className="col-md-12">
@@ -25,7 +26,7 @@ const VacationPending = () => {
                         if (!user.vacation) {
                             return (
                                 <tr key={user.userGPN}>
-                                    <td>{index + 1}</td>
+                                    <td>{++currentIndex}</td>
                                     <td>{user.userName}</td>
                                     <td>{user.userGPN}</td>
                                     <td>{user.userProjectName}</td>

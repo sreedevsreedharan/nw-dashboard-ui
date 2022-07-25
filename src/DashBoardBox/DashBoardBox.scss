@@ -1,12 +1,14 @@
+@import '../common/scss/theme.scss';
+
 .dashboard-box{
     border-left: 0.1em solid ;
     border-right: 0.1em solid;
     border-top: 0.9em solid;
     border-bottom: 0.1em solid;
-    border-color: #02C9AF;
-    background-color: white;
+    border-color: $dasboard-box;
+    background-color: $dashboard-font;
     border-radius: 5%;
-    color: black;
+    color: $dasboard-box-font;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 2%;
 
@@ -16,8 +18,8 @@
     }
 
     &:hover{
-        background-color: #02C9AF; 
-        color: whitesmoke;
+        background-color: $dasboard-box; 
+        color: $dashboard-font;
         cursor: pointer;
     }
 
