@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import report from './tempReport.json';
 import './ReportPage.scss';
+import { monthList, reportButton, tableHeader } from "../common/constants/constants";
 
 const ReportPage = () => {
     const [reportData, setReportData] = useState({});
+    const [currentMonth,setCurrentMonth] = useState();
+    const [nextMonth, setNextMonth] = useState();
+
+    useEffect(()=>{
+        const date = new Date();
+        setCurrentMonth(monthList[date.getMonth()]);
+        setNextMonth(monthList[date.getMonth()+1])
+    },[])
 
     const fetchReport = () => {
         //API call
@@ -23,12 +32,14 @@ const ReportPage = () => {
         });
         return leaveString;
     }
+
+   
     return (
         <div className="row p-3">
             <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-3">
-                        <button className="btn bg-blue" onClick={fetchReport}>Fetch Tabular Report</button>
+                        <button className="btn bg-blue" onClick={fetchReport}>{reportButton}</button>
                     </div>
                 </div>
                 <div className="row mt-5">
@@ -37,12 +48,12 @@ const ReportPage = () => {
                             <table className="report-table">
                                 <thead>
                                     <tr>
-                                        <td className="text-center bg-orange" colSpan={3}>Tentative planned leave</td>
+                                        <td className="text-center bg-orange" colSpan={3}>{tableHeader}</td>
                                     </tr>
                                     <tr>
                                         <th></th>
-                                        <th className="text-center bg-yellow">July</th>
-                                        <th className="text-center bg-yellow">August</th>
+                                        <th className="text-center bg-yellow">{currentMonth}</th>
+                                        <th className="text-center bg-yellow">{nextMonth}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
