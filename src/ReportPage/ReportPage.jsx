@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import report from './tempReport.json';
 import './ReportPage.scss';
 import { monthList, reportButton, tableHeader } from "../common/constants/constants";
+import DashboardRestService from "../common/rest/DashboardRestService";
 
 const ReportPage = () => {
     const [reportData, setReportData] = useState({});
     const [currentMonth,setCurrentMonth] = useState();
     const [nextMonth, setNextMonth] = useState();
+    const restService = new DashboardRestService();
 
     useEffect(()=>{
         const date = new Date();
@@ -15,8 +16,11 @@ const ReportPage = () => {
     },[])
 
     const fetchReport = () => {
-        //API call
-        setReportData(report.projects);
+        restService.getReport()
+        .then(res=>{
+            console.log(res.data)
+            setReportData(res.data.projects);
+        })
     }
 
     const getLeaves = (leaves) => {
@@ -69,9 +73,9 @@ const ReportPage = () => {
                                                     return (
                                                         <>
                                                             <tr>
-                                                                <td className="pe-3">{user.userName}</td>
-                                                                <td className="ps-3 pe-3 text-center">{getLeaves(user.leaves.month1)}</td>
-                                                                <td className="ps-3 pe-3 text-center">{getLeaves(user.leaves.month2)}</td>
+                                                                <td className="pe-3">{user.userName}</td>                                                            
+                                                                <td className="ps-3 pe-3 text-center">{null!= user.leaves?getLeaves(user.leaves.currentMonth):""}</td>
+                                                                <td className="ps-3 pe-3 text-center">{null!= user.leaves?getLeaves(user.leaves.nextMonth):""}</td>
                                                             </tr>
                                                         </>
                                                     )
