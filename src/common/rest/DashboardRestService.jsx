@@ -15,6 +15,10 @@ export default class DashboardRestService {
         return axios.post(`http://localhost:8080/dashboard/v1/add/vacations`,saveObject);
     }
 
+    getReport = () => {
+        return axios.get('http://localhost:8080/dashboard/v1/fetch-report');
+    }
+
     
 
 }

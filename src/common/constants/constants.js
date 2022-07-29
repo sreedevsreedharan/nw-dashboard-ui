@@ -5,6 +5,10 @@ export const onHolidayHeaders = [
 export const vacationPendingHeaders = [
     "#","Employee name","GPN","Team"
 ]
+
+export const confirmLeaveTableHeaders = [
+    "#","Date","Planned leave?","Full day?","Public holiday"
+]
 export const half = "half";
 export const halfDay = "Half Day";
 export const fullDay = "Full Day";
@@ -24,3 +28,40 @@ export const selectEmployee = "Please select an employee name";
 export const confirmVacations = "Confirm your vacations:";
 export const submit = "Submit";
 export const cancel = "Cancel";
+export const confirm = "Confirm";
+export const ok = "OK";
+
+export const error = "Error";
+export const success = "Success";
+
+//Messages
+export const connectionErrorMessage = "Unable to load data. Please try after sometime";
+export const noDataErrorMessage = "No data to save. Please enter some vacation dates";
+export const noVacationDatesMessage = "Please insert some vacation dates";
+export const vacationSuccessMessage  = "Vacation dates saved succesfully";
+export const saveErrorMessage = "Unable to save the vacations. Please try after sometime";
+export const currentMonthVacationMessage = "Please insert some vacation dates for current month";
+
+
+
+//Pop-up headers
+export const confirmLeaveHeader ="Confirm your leave type";
+
+//confirm leave pop up
+export const showing = "Showing ";
+export const of = " of ";
+export const items = " items";
+export const showPrevious = "Show previous";
+export const showNext = "Show next";
+
+//Report page
+export const reportButton = "Fetch Tabular Report";
+
+//Report table constants
+export const tableHeader = "Tentative planned leave";
+
+
+export const monthList = [
+    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+    "November", "December"
+]

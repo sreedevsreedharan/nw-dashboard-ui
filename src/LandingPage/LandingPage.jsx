@@ -5,6 +5,7 @@ import SidePanel from "../SidePanel/SidePanel";
 import TrackVacation from "../TrackVacation/TrackVacation";
 import './LandingPage.scss';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ReportPage from "../ReportPage/ReportPage";
 
 const LandingPage = () => {
 
@@ -29,6 +30,7 @@ const LandingPage = () => {
                             <Routes>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/trackVacation" element={<TrackVacation />} />
+                                <Route path="/viewReport" element={<ReportPage />} />
                             </Routes>
 
 

@@ -1,0 +1,22 @@
+@import '../common/scss/theme.scss';
+
+.report-table {
+    font-family: "Calibri";
+    border: solid 1px;
+
+    th {
+        border: solid 1px;
+    }
+
+    td {
+        border: solid 1px;
+    }
+}
+
+.bg-orange {
+    background-color: $report-header;
+}
+
+.bg-yellow {
+    background-color: $report-project-header;
+}
