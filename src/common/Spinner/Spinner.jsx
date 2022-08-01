@@ -3,15 +3,19 @@ import { useEffect } from "react";
 import { Modal } from 'bootstrap';
 import './Spinner.scss';
 
-const Spinner = () => {
+const Spinner = ({showSpinner}) => {
 
     useEffect(() => {
-        let myModal = new Modal(document.getElementById('spinnerModal'));
-        myModal.show();
-        return () => {
-            myModal.dispose();
-        };
-    }, []);
+        if(showSpinner){
+            let myModal = new Modal(document.getElementById('spinnerModal'));
+            myModal.show();
+        } else{
+            if (document.querySelectorAll('.modal-backdrop').length > 0) {
+                document.querySelectorAll('.modal-backdrop')[0].classList.remove("modal-backdrop");
+                document.getElementById('spinnerModal').hidden = true;
+            }
+        }
+    }, [showSpinner]);
 
     return (
         <div class="modal fade" id="spinnerModal" tabindex="-1" role="dialog" aria-labelledby="spinnerModal" aria-hidden="true">
