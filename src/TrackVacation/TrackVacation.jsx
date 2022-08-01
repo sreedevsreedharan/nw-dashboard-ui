@@ -240,7 +240,7 @@ const TrackVacation = () => {
 
     return (
         <div className="row mt-4">
-            {showSpinner && <Spinner />}
+            <Spinner showSpinner={showSpinner} />
             <div className="col-md-12">
                 <div className="row mt-3 mb-3 ms-3">
                     <div className="col-md-12">
