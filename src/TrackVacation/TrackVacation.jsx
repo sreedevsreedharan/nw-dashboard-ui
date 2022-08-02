@@ -211,18 +211,18 @@ const TrackVacation = () => {
             setShowSpinner(true);
             restService.saveVacations(finalSaveObject)
                 .then(res => {
-                    console.log(res)
                     let myModal = new Modal(document.getElementById('messageModal'));
                     setModalHeader(success);
                     setModalBody(vacationSuccessMessage);
                     setNavigate(true);
                     myModal.show();
                     setShowSpinner(false);
+                    // document.querySelectorAll('.modal-backdrop')[0].classList.remove("modal-backdrop");
                 })
-                .catch(error => {
+                .catch(e=> {
                     let myModal = new Modal(document.getElementById('messageModal'));
                     myModal.show();
-                    setModalHeader(Error);
+                    setModalHeader(error);
                     setModalBody(saveErrorMessage);
                     setShowSpinner(false);
                     setNavigate(true);
@@ -240,7 +240,7 @@ const TrackVacation = () => {
 
     return (
         <div className="row mt-4">
-            <Spinner showSpinner={showSpinner} />
+            {/* <Spinner showSpinner={showSpinner} /> */}
             <div className="col-md-12">
                 <div className="row mt-3 mb-3 ms-3">
                     <div className="col-md-12">
