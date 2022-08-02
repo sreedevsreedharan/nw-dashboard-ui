@@ -22,6 +22,7 @@ export const leaveCount = "On Leave Today";
 export const home = "Home";
 export const trackVacation = "Track Vacation";
 export const viewReport = "View Report";
+export const defaulterMail = "Defaulters Mail";
 
 //track vacation
 export const selectEmployee = "Please select an employee name";
@@ -65,3 +66,13 @@ export const monthList = [
     "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
     "November", "December"
 ]
+
+//defaulters mail
+export const noDefaulters = "No defaulters";
+export const defaulterMailBody = "Please update the status tracker by EOD.";
+export const body = "Body";
+export const defaulterSubject = "Vacation tracker defaulters";
+export const subject = "Subject";
+export const copyList = "Rajesh.Rangam.Venkata.Sainath@gds.ey.com;Bijay.Singh@gds.ey.com";
+export const cc = "Cc";
+export const to = "To";

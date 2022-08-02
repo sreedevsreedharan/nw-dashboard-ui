@@ -6,6 +6,7 @@ import TrackVacation from "../TrackVacation/TrackVacation";
 import './LandingPage.scss';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ReportPage from "../ReportPage/ReportPage";
+import DefaulterMail from "../DefaulterMail/DefaulterMail";
 
 const LandingPage = () => {
 
@@ -31,6 +32,7 @@ const LandingPage = () => {
                                 <Route path="/" element={<Home />} />
                                 <Route path="/trackVacation" element={<TrackVacation />} />
                                 <Route path="/viewReport" element={<ReportPage />} />
+                                <Route path="/defaulterMail" element={<DefaulterMail />} />
                             </Routes>
 
 
