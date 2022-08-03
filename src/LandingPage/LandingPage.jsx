@@ -11,6 +11,8 @@ import DefaulterMail from "../DefaulterMail/DefaulterMail";
 const LandingPage = () => {
 
    const dashboardName = process.env.REACT_APP_DASHBOARD_NAME;
+   const defaultersFeature = process.env.REACT_APP_DEFAULTERS_MAIL_TOGGLE;
+   console.log('defaultersFeature',defaultersFeature);
 
 
     return (
@@ -24,7 +26,7 @@ const LandingPage = () => {
                 <BrowserRouter>
                     <div className="row">
                         <div className="col-md-2 side-panel-parent">
-                            <SidePanel />
+                            <SidePanel defaultersFeature={defaultersFeature}/>
                         </div>
                         <div className="col-md-10">
 

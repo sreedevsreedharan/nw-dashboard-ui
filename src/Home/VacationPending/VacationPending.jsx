@@ -8,14 +8,14 @@ const VacationPending = () => {
     let currentState = useSelector((state) => state.leaveToday);
     let currentIndex = 0;
     const [isUserPresent, setUserPresent] = useState(false);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         currentState.users.forEach(user => {
-            if(!user.vacation){
+            if (!user.vacation) {
                 setUserPresent(true);
             }
-       }); 
-    },[])
+        });
+    }, [])
 
     return (
         <div>
