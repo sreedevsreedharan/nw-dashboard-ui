@@ -23,6 +23,7 @@ export const home = "Home";
 export const trackVacation = "Track Vacation";
 export const viewReport = "View Report";
 export const defaulterMail = "Defaulters Mail";
+export const addUsers = "Add Users";
 
 //track vacation
 export const selectEmployee = "Please select an employee name";
@@ -65,6 +66,10 @@ export const tableHeader = "Tentative planned leave";
 export const monthList = [
     "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
     "November", "December"
+];
+
+export const locationList = [
+    "Choose a location", "Bangalore", "Chennai", "Trivandrum", "Kochi", "Pune", "Mumbai", "Kolkata", "Hyderabad"
 ]
 
 //defaulters mail
