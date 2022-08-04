@@ -81,3 +81,14 @@ export const subject = "Subject";
 export const copyList = "Rajesh.Rangam.Venkata.Sainath@gds.ey.com;Bijay.Singh@gds.ey.com";
 export const cc = "Cc";
 export const to = "To";
+
+//Add users
+export const gpn ="GPN";
+export const name = "Name";
+export const project = "Project";
+export const eyMailId = "EY Email Id";
+export const baseLocation ="Base location";
+export const userAdded = "User added successfully";
+export const userNotAdded = "Unable to add the user. Please try after sometime";
+export const valdiationError ="Following fields cannot be left blank ";
+export const selectProject = "Select a Project";
