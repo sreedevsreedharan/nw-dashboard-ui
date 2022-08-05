@@ -23,7 +23,8 @@ export const home = "Home";
 export const trackVacation = "Track Vacation";
 export const viewReport = "View Report";
 export const defaulterMail = "Defaulters Mail";
-export const addUsers = "Add Users";
+export const addUsers = "Add User";
+export const editUsers = "Edit User";
 
 //track vacation
 export const selectEmployee = "Please select an employee name";

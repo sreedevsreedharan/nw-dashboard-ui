@@ -24,7 +24,7 @@ export default class DashboardRestService {
     }
 
     saveUser = (saveObject) => {
-        return axios.post('http://localhost:8080/dashboard/v1/add/user',saveObject);
+        return axios.post('http://localhost:8081/dashboard/v1/add/user',saveObject);
     }
 
 }

@@ -196,8 +196,6 @@ const TrackVacation = () => {
             });
         }
         const currentMonth = ((new Date()).getMonth()) + 1;
-        console.log('currentMonth', currentMonth);
-        console.log('monthArray', monthArray);
         if (monthArray.includes(currentMonth)) {
             return true;
         } else {
