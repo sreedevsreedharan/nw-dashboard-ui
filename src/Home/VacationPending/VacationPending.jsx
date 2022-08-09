@@ -9,6 +9,7 @@ const VacationPending = () => {
     let currentIndex = 0;
     const [isUserPresent, setUserPresent] = useState(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         currentState.users.forEach(user => {
             if (!user.vacation) {
@@ -45,6 +46,8 @@ const VacationPending = () => {
                                     </tr>
                                 )
 
+                            }else{
+                                return(<></>)
                             }
 
                         })}

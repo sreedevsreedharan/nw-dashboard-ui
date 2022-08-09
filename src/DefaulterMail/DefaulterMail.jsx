@@ -10,6 +10,7 @@ const DefaulterMail = () => {
     let currentState = useSelector((state) => state.users);
     const [defaultersList, setDefaultersList] = useState([]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>{
         let emailList = "";
         currentState.users.forEach(user => {
@@ -57,7 +58,7 @@ const DefaulterMail = () => {
                     </div>
                 </div>
             </div>}
-            {defaultersList.length==0 && <div className="col-md-12">
+            {defaultersList.length===0 && <div className="col-md-12">
                 {noDefaulters}
                 </div>}
         </div>

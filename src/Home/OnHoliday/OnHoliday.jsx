@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from 'react-redux';
-import { fullDay, half, halfDay, no, onHolidayHeaders, onLeaveToday, yes } from "../../common/constants/constants";
+import { fullDay, halfDay, no, onHolidayHeaders, onLeaveToday, yes } from "../../common/constants/constants";
 
 const OnHoliday = () => {
     let currentState = useSelector((state) => state.leaveToday);

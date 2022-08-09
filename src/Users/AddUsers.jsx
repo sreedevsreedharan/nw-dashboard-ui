@@ -50,7 +50,7 @@ const AddUsers = ({ editUser }) => {
             isValidated = false;
             errorField.push(eyMailId);
         }
-        if (userLocation == '') {
+        if (userLocation === '') {
             isValidated = false;
             errorField.push(baseLocation);
         }
@@ -98,6 +98,7 @@ const AddUsers = ({ editUser }) => {
         setUserName('');
         setUserProjectName('');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         restService.getProjects()
             .then(res => {

@@ -14,6 +14,7 @@ const Home = () => {
     let currentState = useSelector((state) => state.leaveToday);
     const restService = new DashboardRestService();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>{
         restService.getOnLoadData()
         .then(res => {
