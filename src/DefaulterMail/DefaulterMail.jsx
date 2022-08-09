@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps*/
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -10,7 +11,6 @@ const DefaulterMail = () => {
     let currentState = useSelector((state) => state.users);
     const [defaultersList, setDefaultersList] = useState([]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>{
         let emailList = "";
         currentState.users.forEach(user => {

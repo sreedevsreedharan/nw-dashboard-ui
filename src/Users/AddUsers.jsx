@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps*/
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -98,7 +99,7 @@ const AddUsers = ({ editUser }) => {
         setUserName('');
         setUserProjectName('');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     useEffect(() => {
         restService.getProjects()
             .then(res => {
