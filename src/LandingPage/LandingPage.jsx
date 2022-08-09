@@ -6,10 +6,14 @@ import TrackVacation from "../TrackVacation/TrackVacation";
 import './LandingPage.scss';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ReportPage from "../ReportPage/ReportPage";
+import DefaulterMail from "../DefaulterMail/DefaulterMail";
+import AddUsers from "../Users/AddUsers";
 
 const LandingPage = () => {
 
    const dashboardName = process.env.REACT_APP_DASHBOARD_NAME;
+   const defaultersFeature = process.env.REACT_APP_DEFAULTERS_MAIL_TOGGLE;
+   console.log('defaultersFeature',defaultersFeature);
 
 
     return (
@@ -23,7 +27,7 @@ const LandingPage = () => {
                 <BrowserRouter>
                     <div className="row">
                         <div className="col-md-2 side-panel-parent">
-                            <SidePanel />
+                            <SidePanel defaultersFeature={defaultersFeature}/>
                         </div>
                         <div className="col-md-10">
 
@@ -31,6 +35,9 @@ const LandingPage = () => {
                                 <Route path="/" element={<Home />} />
                                 <Route path="/trackVacation" element={<TrackVacation />} />
                                 <Route path="/viewReport" element={<ReportPage />} />
+                                <Route path="/defaulterMail" element={<DefaulterMail />} />
+                                <Route path="/addUsers" element={<AddUsers editUser={false}/>} />
+                                <Route path="/editUsers" element={<AddUsers editUser={true}/>} />
                             </Routes>
 
 

@@ -22,6 +22,9 @@ export const leaveCount = "On Leave Today";
 export const home = "Home";
 export const trackVacation = "Track Vacation";
 export const viewReport = "View Report";
+export const defaulterMail = "Defaulters Mail";
+export const addUsers = "Add User";
+export const editUsers = "Edit User";
 
 //track vacation
 export const selectEmployee = "Please select an employee name";
@@ -64,4 +67,29 @@ export const tableHeader = "Tentative planned leave";
 export const monthList = [
     "January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
     "November", "December"
+];
+
+export const locationList = [
+    "Choose a location", "Bangalore", "Chennai", "Trivandrum", "Kochi", "Pune", "Mumbai", "Kolkata", "Hyderabad"
 ]
+
+//defaulters mail
+export const noDefaulters = "No defaulters";
+export const defaulterMailBody = "Please update the status tracker by EOD.";
+export const body = "Body";
+export const defaulterSubject = "Vacation tracker defaulters";
+export const subject = "Subject";
+export const copyList = "Rajesh.Rangam.Venkata.Sainath@gds.ey.com;Bijay.Singh@gds.ey.com";
+export const cc = "Cc";
+export const to = "To";
+
+//Add users
+export const gpn ="GPN";
+export const name = "Name";
+export const project = "Project";
+export const eyMailId = "EY Email Id";
+export const baseLocation ="Base location";
+export const userAdded = "User added successfully";
+export const userNotAdded = "Unable to add the user. Please try after sometime";
+export const valdiationError ="Following fields cannot be left blank ";
+export const selectProject = "Select a Project";
