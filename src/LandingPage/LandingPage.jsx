@@ -13,7 +13,7 @@ const LandingPage = () => {
 
    const dashboardName = process.env.REACT_APP_DASHBOARD_NAME;
    const defaultersFeature = process.env.REACT_APP_DEFAULTERS_MAIL_TOGGLE;
-   console.log('defaultersFeature',defaultersFeature);
+//    console.log('defaultersFeature',defaultersFeature);
 
 
     return (
