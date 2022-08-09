@@ -7,6 +7,7 @@ import './LandingPage.scss';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ReportPage from "../ReportPage/ReportPage";
 import DefaulterMail from "../DefaulterMail/DefaulterMail";
+import AddUsers from "../Users/AddUsers";
 
 const LandingPage = () => {
 
@@ -35,6 +36,8 @@ const LandingPage = () => {
                                 <Route path="/trackVacation" element={<TrackVacation />} />
                                 <Route path="/viewReport" element={<ReportPage />} />
                                 <Route path="/defaulterMail" element={<DefaulterMail />} />
+                                <Route path="/addUsers" element={<AddUsers editUser={false}/>} />
+                                <Route path="/editUsers" element={<AddUsers editUser={true}/>} />
                             </Routes>
 
 

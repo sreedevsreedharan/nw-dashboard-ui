@@ -19,7 +19,13 @@ export default class DashboardRestService {
         return axios.get('http://localhost:8080/dashboard/v1/fetch-report');
     }
 
-    
+    getProjects = () => {
+        return axios.get('http://localhost:8080/dashboard/v1/fetch-projects');
+    }
+
+    saveUser = (saveObject) => {
+        return axios.post('http://localhost:8081/dashboard/v1/add/user',saveObject);
+    }
 
 }
 
