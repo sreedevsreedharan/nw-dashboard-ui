@@ -7,7 +7,6 @@ import './TrackVacation.scss';
 import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
 import DashboardRestService from "../common/rest/DashboardRestService";
-import Spinner from "../common/Spinner/Spinner";
 
 const TrackVacation = () => {
     const displayLimit = 6;
@@ -217,7 +216,7 @@ const TrackVacation = () => {
                     setShowSpinner(false);
                     // document.querySelectorAll('.modal-backdrop')[0].classList.remove("modal-backdrop");
                 })
-                .catch(e=> {
+                .catch(e => {
                     let myModal = new Modal(document.getElementById('messageModal'));
                     myModal.show();
                     setModalHeader(error);
@@ -238,7 +237,6 @@ const TrackVacation = () => {
 
     return (
         <div className="row mt-4">
-            {/* <Spinner showSpinner={showSpinner} /> */}
             <div className="col-md-12">
                 <div className="row mt-3 mb-3 ms-3">
                     <div className="col-md-12">
@@ -283,7 +281,8 @@ const TrackVacation = () => {
                             disabled={!currentUser}
                             className="btn bg-blue"
                             onClick={setNewVacationDateObjects}>
-                            {submit}
+                            {showSpinner && <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
+                            {!showSpinner && <span>{submit}</span>}
                         </button>
                     </div>
                     <div className="col-md-1">
