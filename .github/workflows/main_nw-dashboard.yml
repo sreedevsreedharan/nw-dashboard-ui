@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'nw-dashboard'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_809F814FEF8D434A9732A5A90365B509 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F74A82861585480DA538FF1F76CF2C62 }}
           package: .
