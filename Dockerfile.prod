@@ -1,0 +1,12 @@
+FROM node as build
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . .
+ENV REACT_APP_DASHBOARD_NAME="NW Dashboard"
+ENV REACT_APP_DEFAULTERS_MAIL_TOGGLE=true
+RUN npm run build
+
+FROM nginx
+COPY --from=build /app/build /usr/share/nginx/html
+
