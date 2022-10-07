@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/nw-dashboard-ui/static/css/main.ae8069a6.css",
+    "main.js": "/nw-dashboard-ui/static/js/main.43ffc8e9.js",
+    "static/js/787.11c61d9f.chunk.js": "/nw-dashboard-ui/static/js/787.11c61d9f.chunk.js",
+    "index.html": "/nw-dashboard-ui/index.html",
+    "main.ae8069a6.css.map": "/nw-dashboard-ui/static/css/main.ae8069a6.css.map",
+    "main.43ffc8e9.js.map": "/nw-dashboard-ui/static/js/main.43ffc8e9.js.map",
+    "787.11c61d9f.chunk.js.map": "/nw-dashboard-ui/static/js/787.11c61d9f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ae8069a6.css",
+    "static/js/main.43ffc8e9.js"
+  ]
+}
