@@ -2,7 +2,6 @@
   "name": "nw-dashboard",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://sreedevsreedharan.github.io/nw-dashboard-ui",
   "engines" : { 
     "npm" : "6.14.13",
     "node" : "14.17.1"
