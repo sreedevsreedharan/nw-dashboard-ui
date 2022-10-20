@@ -100,14 +100,14 @@ const TrackVacation = () => {
                         vacationDate: currentDate,
                         vacationPlanned: vacationValues[getAlreadyDatePresentIndex(currentDate)].vacationPlanned,
                         vacationFullDay: vacationValues[getAlreadyDatePresentIndex(currentDate)].vacationFullDay,
-                        publicHoliday: vacationValues[getAlreadyDatePresentIndex(currentDate)].publicHoliday
+                        // publicHoliday: vacationValues[getAlreadyDatePresentIndex(currentDate)].publicHoliday
                     }
                 } else {
                     newDate = {
                         vacationDate: currentDate,
                         vacationPlanned: true,
                         vacationFullDay: true,
-                        publicHoliday: false
+                        // publicHoliday: false
                     }
                 }
                 saveObject.vacations.push(newDate);
@@ -174,15 +174,15 @@ const TrackVacation = () => {
         setFinalSaveObject(tempFinalSaveObject);
     }
 
-    const updatePH = (checked, vacationDate) => {
-        let tempFinalSaveObject = finalSaveObject;
-        tempFinalSaveObject.vacations.forEach(element => {
-            if (element.date === vacationDate) {
-                element.publicHoliday = checked;
-            }
-        });
-        setFinalSaveObject(tempFinalSaveObject);
-    }
+    // const updatePH = (checked, vacationDate) => {
+    //     let tempFinalSaveObject = finalSaveObject;
+    //     tempFinalSaveObject.vacations.forEach(element => {
+    //         if (element.date === vacationDate) {
+    //             element.publicHoliday = checked;
+    //         }
+    //     });
+    //     setFinalSaveObject(tempFinalSaveObject);
+    // }
 
     const isCurrentMonthsChangesPresent = () => {
         let monthArray = [];
@@ -375,7 +375,7 @@ const TrackVacation = () => {
                                                                 />
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        {/* <td>
                                                             <div class="form-check form-switch">
                                                                 <input
                                                                     class="form-check-input"
@@ -385,7 +385,7 @@ const TrackVacation = () => {
                                                                     defaultChecked={vacation.publicHoliday}
                                                                 />
                                                             </div>
-                                                        </td>
+                                                        </td> */}
                                                     </tr>
                                                 )
                                             })
