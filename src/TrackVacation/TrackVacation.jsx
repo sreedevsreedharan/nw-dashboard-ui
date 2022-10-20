@@ -7,6 +7,7 @@ import './TrackVacation.scss';
 import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
 import DashboardRestService from "../common/rest/DashboardRestService";
+import { useEffect } from "react";
 
 const TrackVacation = () => {
     const displayLimit = 6;
@@ -23,6 +24,7 @@ const TrackVacation = () => {
     const [modalBody, setModalBody] = useState('');
     const [isNavigate, setNavigate] = useState(false);
     const [showSpinner, setShowSpinner] = useState(false);
+    const [dropDownUsers, setDropdownUsers] = useState([])
 
     const messageModalClick = () => {
         if (isNavigate) {
@@ -234,6 +236,16 @@ const TrackVacation = () => {
 
     }
 
+    useEffect(() =>{
+        let users = currentState.users;
+        let sortedUsers = users.slice().sort(function(a, b) {
+            var userA = a.userName.toUpperCase();
+            var userB = b.userName.toUpperCase();
+            return (userA < userB) ? -1 : (userA > userB) ? 1 : 0;
+        });
+        setDropdownUsers(sortedUsers);
+    },[]);
+
 
     return (
         <div className="row mt-4">
@@ -246,7 +258,7 @@ const TrackVacation = () => {
                             onChange={(e) => userChanged(e)}
                         >
                             <option selected>{selectEmployee}</option>
-                            {currentState.users.map(user => {
+                            {dropDownUsers.map(user => {
                                 return (
                                     <option
                                         key={user.userGPN}
