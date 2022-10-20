@@ -7,7 +7,7 @@ export const vacationPendingHeaders = [
 ]
 
 export const confirmLeaveTableHeaders = [
-    "#","Date","Planned leave?","Full day?","Public holiday"
+    "#","Date","Planned leave?","Full day?"
 ]
 export const half = "half";
 export const halfDay = "Half Day";
