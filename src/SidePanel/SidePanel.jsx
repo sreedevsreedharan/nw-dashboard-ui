@@ -28,7 +28,7 @@ const SidePanel = ({ defaultersFeature }) => {
                         <Link className="text-light" to="/defaulterMail">{defaulterMail}</Link>
                     </div>
                 </div>}
-                <div className="row mt-3">
+                {/* <div className="row mt-3">
                     <div className="col-md-12">
                         <Link className="text-light" to="/addUsers">{addUsers}</Link>
                     </div>
@@ -37,7 +37,7 @@ const SidePanel = ({ defaultersFeature }) => {
                     <div className="col-md-12">
                         <Link className="text-light" to="/editUsers">{editUsers}</Link>
                     </div>
-                </div>
+                </div> */}
             </div>
 
         </div>

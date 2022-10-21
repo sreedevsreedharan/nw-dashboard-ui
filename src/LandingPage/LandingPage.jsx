@@ -35,9 +35,9 @@ const LandingPage = () => {
                                 <Route path="/" element={<Home />} />
                                 <Route path="/trackVacation" element={<TrackVacation />} />
                                 <Route path="/viewReport" element={<ReportPage />} />
-                                <Route path="/defaulterMail" element={<DefaulterMail />} />
+                                {/* <Route path="/defaulterMail" element={<DefaulterMail />} />
                                 <Route path="/addUsers" element={<AddUsers editUser={false}/>} />
-                                <Route path="/editUsers" element={<AddUsers editUser={true}/>} />
+                                <Route path="/editUsers" element={<AddUsers editUser={true}/>} /> */}
                             </Routes>
 
 
