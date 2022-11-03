@@ -1,5 +1,12 @@
 @import '../common/scss/theme.scss';
 
+
+.drop-down{
+    padding: 10px; 
+    background:$dashboard-color; 
+    border:none;
+    color: $dashboard-font;
+}
 .report-table {
     font-family: "Calibri";
     border: solid 1px;

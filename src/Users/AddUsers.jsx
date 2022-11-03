@@ -63,14 +63,14 @@ const AddUsers = ({ editUser }) => {
         setShowSpinner(true);
         const isValidated = validateEntries();
         if (isValidated) {
-            const user = {
+            const user = [{
                 "userGPN": userGPN,
                 "userName": userName,
                 "userProjectName": userProjectName,
                 "userEmail": userEmail,
                 "userActive": true,
                 "userLocation": userLocation
-            }
+            }];
 
             restService.saveUser(user)
                 .then(res => {

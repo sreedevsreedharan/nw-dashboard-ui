@@ -3,29 +3,42 @@ import axios from "axios";
 
 export default class DashboardRestService {
 
+    serviceUrl = process.env.REACT_APP_SERVICE;
+
     getOnLoadData = () => {
-        return axios.get('https://nw-dashboard-service-app.herokuapp.com/dashboard/v1/load');
+        return axios.get(`${this.serviceUrl}/dashboard/v1/load`);
     }
 
     getVacations = (gpn) => {
-        return axios.get(`https://nw-dashboard-service-app.herokuapp.com/dashboard/v1/${gpn}/vacations`);
+        return axios.get(`${this.serviceUrl}/dashboard/v1/${gpn}/vacations`);
     }
 
     saveVacations = (saveObject) => {
-        return axios.post(`https://nw-dashboard-service-app.herokuapp.com/dashboard/v1/add/vacations`,saveObject);
+        return axios.post(`${this.serviceUrl}/dashboard/v1/add/vacations`, saveObject);
     }
 
     getReport = () => {
-        return axios.get('https://nw-dashboard-service-app.herokuapp.com/dashboard/v1/fetch-report');
+        return axios.get(`${this.serviceUrl}/dashboard/v1/fetch-report`);
     }
 
     getProjects = () => {
-        return axios.get('https://nw-dashboard-service-app.herokuapp.com/dashboard/v1/fetch-projects');
+        return axios.get(`${this.serviceUrl}/dashboard/v1/fetch-projects`);
     }
 
     saveUser = (saveObject) => {
-        return axios.post('https://nw-dashboard-service-app.herokuapp.com/dashboard/v1/add/user',saveObject);
+        return axios.post(`${this.serviceUrl}/dashboard/v1/add/user`, saveObject);
     }
+
+    fetchExcelReport = (startDate, endDate, userGPN) => {
+        if (userGPN) {
+            return axios.post(`${this.serviceUrl}/dashboard/v1/generate-report?startDate=${startDate}&endDate=${endDate}&userGPN=${userGPN}`);
+        } else {
+            return axios.post(`${this.serviceUrl}/dashboard/v1/generate-report?startDate=${startDate}&endDate=${endDate}`);
+        }
+
+    }
+
+
 
 }
 
