@@ -41,7 +41,6 @@ const VacationPending = () => {
                                     <tr key={user.userGPN}>
                                         <td>{++currentIndex}</td>
                                         <td>{user.userName}</td>
-                                        <td>{user.userGPN}</td>
                                         <td>{user.userProjectName}</td>
                                     </tr>
                                 )
