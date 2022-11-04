@@ -1,3 +1,11 @@
+@import '../common/scss/theme.scss';
+
 a{
     text-decoration: none;
+}
+
+.active-link{
+    font-weight: 1000;
+    color: $dasboard-box !important;
+    font-size: 1.2em;
 }
