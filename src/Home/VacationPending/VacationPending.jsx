@@ -56,11 +56,11 @@ const VacationPending = () => {
                             return (
                                 <table className="table table-bordered mt-5">
                                     <thead >
-                                        <th colSpan={2}>
+                                        <th className="th" colSpan={2}>
                                             {key}
                                         </th>
                                     </thead>
-                                    <tbody>
+                                    <tbody className="tbody">
                                         {value.map((user, index) => {
                                             if (!user.vacation) {
                                                 return (
