@@ -1,0 +1,17 @@
+@import '../../common/scss/theme.scss';
+
+.fixed-width{
+    width:10%;
+}
+
+th{
+    background-color: $dasboard-box;
+    color: white;
+    text-align: center;
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+
+tbody{
+    margin-top: 2px;
+}
