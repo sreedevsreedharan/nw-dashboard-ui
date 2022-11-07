@@ -27,7 +27,7 @@ export const addUsers = "Add User";
 export const editUsers = "Edit User";
 
 //track vacation
-export const selectEmployee = "Please select an employee name";
+export const selectEmployee = "Please enter an employee name";
 export const confirmVacations = "Confirm your vacations:";
 export const submit = "Submit";
 export const cancel = "Cancel";

@@ -264,7 +264,7 @@ const TrackVacation = () => {
                 <div className="row mt-3 mb-3 ms-3">
                     <div className="col-md-4">
                         {dropDownUsers &&
-                            <Select options={dropDownUsers}
+                            <Select placeholder={selectEmployee} options={dropDownUsers}
                                 onChange={(e) => userChanged(e)}
                                 value={currentUser} />}
                     </div>
