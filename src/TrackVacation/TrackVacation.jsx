@@ -75,7 +75,7 @@ const TrackVacation = () => {
      */
     const setNewVacationDateObjects = () => {
         let saveObject = {
-            userGPN: currentUser,
+            userGPN: currentUser.value,
             vacations: []
         }
         if (vacationValues.length > 0 && vacationValues[0] instanceof Date) {
