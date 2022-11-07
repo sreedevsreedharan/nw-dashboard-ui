@@ -8,6 +8,7 @@ import { Modal } from 'bootstrap';
 import { useNavigate } from 'react-router-dom';
 import DashboardRestService from "../common/rest/DashboardRestService";
 import { useEffect } from "react";
+import Select from 'react-select';
 
 const TrackVacation = () => {
     const displayLimit = 6;
@@ -24,7 +25,7 @@ const TrackVacation = () => {
     const [modalBody, setModalBody] = useState('');
     const [isNavigate, setNavigate] = useState(false);
     const [showSpinner, setShowSpinner] = useState(false);
-    const [dropDownUsers, setDropdownUsers] = useState([])
+    const [dropDownUsers, setDropdownUsers] = useState([]);
 
     const messageModalClick = () => {
         if (isNavigate) {
@@ -43,18 +44,15 @@ const TrackVacation = () => {
         setVacationValues([]);
         let tempVacations = [];
         let vacationDates = [];
-        restService.getVacations(e.target.value)
+        restService.getVacations(e.value)
             .then(res => {
                 if (res.data.vacations) {
                     vacationDates = res.data.vacations;
                 }
                 if (vacationDates.length > 0) {
                     vacationDates.forEach(date => {
-                        console.log(date.vacationDate);
                         let timestamp = Date.parse(date.vacationDate);
-                        console.log(timestamp);
                         let dateObject = new Date(timestamp);
-                        console.log(dateObject);
                         tempVacations.push(dateObject);
                         setVacationValues(tempVacations);
                     });
@@ -69,7 +67,7 @@ const TrackVacation = () => {
                 setNavigate(true);
                 setShowSpinner(false);
             });
-        setCurrentUser(e.target.value);
+        setCurrentUser(e);
     }
 
     /**
@@ -236,37 +234,39 @@ const TrackVacation = () => {
 
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         let users = currentState.users;
-        let sortedUsers = users.slice().sort(function(a, b) {
+        let userList = [];
+        let sortedUsers = users.slice().sort(function (a, b) {
             var userA = a.userName.toUpperCase();
             var userB = b.userName.toUpperCase();
             return (userA < userB) ? -1 : (userA > userB) ? 1 : 0;
         });
-        setDropdownUsers(sortedUsers);
-    },[]);
+
+        sortedUsers.map(user => {
+            userList.push({
+                label: user.userName,
+                value: user.userGPN
+            })
+        })
+        console.log('userList', userList);
+        setDropdownUsers(userList);
+
+
+    }, []);
+
+
 
 
     return (
         <div className="row mt-4">
             <div className="col-md-12">
                 <div className="row mt-3 mb-3 ms-3">
-                    <div className="col-md-12">
-                        <select
-                            value={currentUser}
-                            className="drop-down mb-3"
-                            onChange={(e) => userChanged(e)}
-                        >
-                            <option selected>{selectEmployee}</option>
-                            {dropDownUsers.map(user => {
-                                return (
-                                    <option
-                                        key={user.userGPN}
-                                        value={user.userGPN}>{user.userName}
-                                    </option>
-                                )
-                            })}
-                        </select>
+                    <div className="col-md-4">
+                        {dropDownUsers &&
+                            <Select options={dropDownUsers}
+                                onChange={(e) => userChanged(e)}
+                                value={currentUser} />}
                     </div>
                 </div>
                 {currentUser &&
