@@ -1,0 +1,32 @@
+@import '../common/scss/theme.scss';
+
+.center-box {
+    position: absolute;
+    left: 36%;
+    top: 25%;
+    width: 28%;
+    height: 70%;
+    padding: 10px;
+    border: 1px solid $dashboard-color;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-color: $dashboard-color;
+    border-radius: 1em;
+
+    .title{
+        text-align: center;
+        font-size: x-large;
+    }
+
+    .input-box {
+
+        position: absolute;
+        left: 15%;
+        top: 40%;
+
+        .text-box {
+            text-align: center;
+        }
+    }
+
+}
