@@ -1,0 +1,19 @@
+@import '../common/scss/theme.scss';
+
+.navbar {
+    background-color: $dashboard-color !important;
+    color: $dashboard-font;
+
+    .collapse {
+        position: absolute;
+        right: 30%;
+    }
+
+    .nav-item{
+        margin-right: 0.8em;       
+        
+        .nav-link{
+            color:$dashboard-font !important;
+        }
+    }
+}

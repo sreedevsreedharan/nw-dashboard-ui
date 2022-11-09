@@ -45,7 +45,7 @@ const VacationPending = () => {
         <div>
             {isUserPresent && <div className="col-md-12">
                 <div>
-                    <h5>{vacationPending}</h5>
+                    <h5>Pending Vacation Tracker</h5>
                 </div>
                 <div>
                     {Array.from(filteredUserMap.entries()).map(entry => {

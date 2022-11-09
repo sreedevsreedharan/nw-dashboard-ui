@@ -8,7 +8,7 @@ const DashBoardBox = ({count, text, click, onDashBoardClick}) => {
                 <div className="col-md-12 text-center count-span">{count}</div>
             </div>
             <div className="row">
-                <div className="col-md-12 text-center">
+                <div className="col-md-12 text-span text-center">
                     {text}
                 </div>
             </div>

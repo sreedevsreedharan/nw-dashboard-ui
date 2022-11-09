@@ -11,6 +11,7 @@ import AddUsers from "../Users/AddUsers";
 import icon from '../images/logo-color.png';
 import LoginPage from "../Login/LoginPage";
 import { useState } from "react";
+import NavBar from "../NavBar/NavBar";
 
 const LandingPage = () => {
 
@@ -23,24 +24,14 @@ const LandingPage = () => {
 
     return (
         <div className="row landing-page-parent">
-            <div className="col-md-12">
-                <div className="row">
-                    <div className="col-md-12  header">
-                        <div className="row">
-                            <div className="ms-4 text-center col-md-12">
-                                <img className="icon" src={icon} />
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
-                <BrowserRouter>
+            <BrowserRouter>
+                <div className="col-md-12">
                     <div className="row">
-                        <div className="col-md-2">
-                            <SidePanel defaultersFeature={defaultersFeature} />
-                        </div>
+                        <NavBar />
+                    </div>
+                    <div className="row">                        
                         <div className="col-md-10">
-
                             <Routes>
                                 {loginFeature && <Route path="/login" element={<LoginPage />} />}
                                 <Route path="/" element={<Home />} />
@@ -54,9 +45,10 @@ const LandingPage = () => {
 
                         </div>
                     </div>
-                </BrowserRouter>
-            </div>
-        </div>
+                </div>
+            </BrowserRouter>
+
+        </div >
     )
 }
 export default LandingPage;

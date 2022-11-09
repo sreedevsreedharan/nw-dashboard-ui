@@ -10,11 +10,18 @@
     border-radius: 5%;
     color: $dasboard-box-font;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    padding: 2%;
+    // padding: 2%;
+    height:6em;
+    width:10%;
 
     .count-span{
-        font-size: x-large;
+        font-size: large;
+        margin-top: 0.5em;
         margin-bottom: 0.5em;
+    }
+
+    .text-span {
+        font-size: small;
     }
 
     &:hover{

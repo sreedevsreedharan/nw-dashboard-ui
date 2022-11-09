@@ -31,7 +31,6 @@ const ReportPage = () => {
             var userB = b.userName.toUpperCase();
             return (userA < userB) ? -1 : (userA > userB) ? 1 : 0;
         });
-        console.log('sortedUsers',sortedUsers)
         setDropdownUsers(sortedUsers);
     }, []);
 
@@ -75,6 +74,15 @@ const ReportPage = () => {
             })
     }
 
+    const copyReport = (e) => {
+        var urlField = document.getElementById('sample')
+        var range = document.createRange()
+        range.selectNode(urlField)
+        console.log(range)
+        window.getSelection().addRange(range)
+        document.execCommand('copy')
+    }
+
 
     return (
         <div className="row p-3">
@@ -93,9 +101,17 @@ const ReportPage = () => {
 
                 </div>
                 {currentReportType === 'mail-report' && reportData && reportData.length > 0 && <div className="row mt-5">
+                    <div className="row">
+                        <div className="offset-md-8 col-md-2">
+                            <button class="btn btn-secondary" onClick={(e) => copyReport(e)}>
+                                <i class="fa fa-file fa-solid" aria-hidden="true"></i>
+                                &nbsp;Copy
+                            </button>
 
+                        </div>
+                    </div>
                     <div>
-                        <table className="report-table">
+                        <table id="sample" className="report-table">
                             <thead>
                                 <tr>
                                     <td className="text-center bg-orange" colSpan={3}>{tableHeader}</td>
@@ -149,7 +165,7 @@ const ReportPage = () => {
                                     From date
                                 </div>
                                 <div className="col-md-3">
-                                    <input value={fromDate} onChange={(e)=>setFromDate(e.target.value)} disabled={allDates} type="date" className="form-control" />
+                                    <input value={fromDate} onChange={(e) => setFromDate(e.target.value)} disabled={allDates} type="date" className="form-control" />
                                 </div>
                             </div>
                             <div className="row mt-3">
@@ -157,7 +173,7 @@ const ReportPage = () => {
                                     To date
                                 </div>
                                 <div className="col-md-3">
-                                    <input value={toDate} onChange={(e)=>setToDate(e.target.value)}  disabled={allDates} type="date" className="form-control" />
+                                    <input value={toDate} onChange={(e) => setToDate(e.target.value)} disabled={allDates} type="date" className="form-control" />
                                 </div>
                             </div>
                             <div className="row mt-3">

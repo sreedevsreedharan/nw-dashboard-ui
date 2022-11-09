@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import DatePicker from "react-multi-date-picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import { useSelector } from "react-redux";
@@ -26,6 +26,7 @@ const TrackVacation = () => {
     const [isNavigate, setNavigate] = useState(false);
     const [showSpinner, setShowSpinner] = useState(false);
     const [dropDownUsers, setDropdownUsers] = useState([]);
+    const datePickerRef = useRef();
 
     const messageModalClick = () => {
         if (isNavigate) {
@@ -249,7 +250,6 @@ const TrackVacation = () => {
                 value: user.userGPN
             })
         })
-        console.log('userList', userList);
         setDropdownUsers(userList);
 
 
@@ -277,6 +277,7 @@ const TrackVacation = () => {
                     <div className="col-md-6">
                         <DatePicker
                             multiple
+                            ref={datePickerRef} 
                             shadow
                             numberOfMonths={2}
                             value={vacationValues}
@@ -284,7 +285,15 @@ const TrackVacation = () => {
                             plugins={[
                                 <DatePanel />
                             ]}
-                        />
+                        >
+                            <button
+                            className="btn btn-success"
+                                style={{ margin: "10px" }}
+                                onClick={() => datePickerRef.current.closeCalendar()}
+                            >
+                                Confirm
+                            </button>
+                        </DatePicker>
                     </div>
                 </div>}
                 {currentUser && <div className="row mt-5 ms-3">
@@ -327,15 +336,15 @@ const TrackVacation = () => {
                                                     <div className="col-md-3 offset-md-5">
                                                         {showing}{currentDisplayObject.length + currentRowStart}{of}{finalSaveObject.vacations.length}{items}
                                                     </div>
-                                                    <div className="col-md-2">
+                                                    <div className="col-md-1">
                                                         <button disabled={currentRowStart === 0} className="btn btn-success" onClick={() => {
                                                             setCurrentRowStart(currentRowStart - displayLimit);
                                                             setCurrentRowLimit(currentRowLimit - displayLimit);
                                                             refreshTableData(finalSaveObject, currentRowStart - displayLimit,
                                                                 currentRowLimit - displayLimit);
-                                                        }}>{showPrevious}</button>
+                                                        }}><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
                                                     </div>
-                                                    <div className="col-md-2">
+                                                    <div className="col-md-1">
                                                         <button disabled={finalSaveObject &&
                                                             currentRowLimit >= finalSaveObject.vacations.length} className="btn btn-success" onClick={() => {
                                                                 setCurrentRowStart(currentRowStart + displayLimit);
@@ -343,7 +352,7 @@ const TrackVacation = () => {
                                                                 refreshTableData(finalSaveObject, currentRowStart + displayLimit,
                                                                     currentRowLimit + displayLimit);
                                                             }}>
-                                                            {showNext}</button>
+                                                            <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
                                                     </div>
                                                 </div>}
                                         </div>

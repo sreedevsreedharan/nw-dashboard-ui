@@ -9,29 +9,34 @@ import { useEffect } from "react";
 import VacationPending from "./VacationPending/VacationPending";
 import DashboardRestService from "../common/rest/DashboardRestService";
 import { addLeaveToday, addUsers } from "../common/redux/DashBoardSlice";
+import { Modal } from "bootstrap";
 
 const Home = () => {
     const dispatch = useDispatch();
     let currentState = useSelector((state) => state.leaveToday);
     const restService = new DashboardRestService();
 
-    useEffect(()=>{
+    useEffect(() => {
         restService.getOnLoadData()
-        .then(res => {
-            if(res.data.users){
-                dispatch(addUsers(res.data.users));
-            }
-            if(res.data.onVacationToday){
-                dispatch(addLeaveToday(res.data.onVacationToday));
-            }    
-        })
-    },[]);
+            .then(res => {
+                if (res.data.users) {
+                    dispatch(addUsers(res.data.users));
+                }
+                if (res.data.onVacationToday) {
+                    dispatch(addLeaveToday(res.data.onVacationToday));
+                }
+            })
+    }, []);
 
     const [dashboardContent, setDashBoardContent] = useState([]);
+    const [trackerContent, setTrackerContent] = useState([]);
+    const [todayContent, setTodayContent] = useState([]);
     const [tableContent, setTableContent] = useState();
 
     const onDashBoardClick = (clicked) => {
         setTableContent(clicked);
+        let myModal = new Modal(document.getElementById('messageModal'));
+        myModal.show();
     }
 
     useEffect(() => {
@@ -43,19 +48,22 @@ const Home = () => {
                 }
             });
 
-            let content = [
+            let trackercontent = [
                 {
                     count: vacationPendingCount,
                     text: vacationPending,
                     click: 'vacation'
-                },
+                }
+            ];
+            let todayContent = [
                 {
                     count: currentState.leaveToday.length,
                     text: leaveCount,
                     click: 'leave'
                 }
-            ];
-            setDashBoardContent(content);
+            ]
+            setTrackerContent(trackercontent);
+            setTodayContent(todayContent);
         }
 
     }, [currentState]);
@@ -64,7 +72,11 @@ const Home = () => {
         <div className="row p-5">
             <div className="col-md-12">
                 <div className="row">
-                    {dashboardContent && dashboardContent.map(content => {
+                    Trackers Pending
+                    <hr />
+                </div>
+                <div className="row mt-2">
+                    {trackerContent && trackerContent.map(content => {
                         return (
                             <DashBoardBox count={content.count}
                                 text={content.text} onDashBoardClick={onDashBoardClick}
@@ -73,23 +85,41 @@ const Home = () => {
                         )
                     })}
                 </div>
-                <hr />
-                <div className="row mt-5">
-                    {(() => {
-                        switch (tableContent) {
+                <div className="row mt-4">
+                    Today
+                    <hr />
+                </div>
+                <div className="row  mt-2">
+                    {todayContent && todayContent.map(content => {
+                        return (
+                            <DashBoardBox count={content.count}
+                                text={content.text} onDashBoardClick={onDashBoardClick}
+                                click={content.click}
+                            />
+                        )
+                    })}
+                </div>
 
-                            case 'leave':
-                                return <OnHoliday />;
+                <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                <div class="modal-body p-5">
+                                    {(() => {
+                                        switch (tableContent) {
 
-                            case 'vacation':
-                                return <VacationPending />;
+                                            case 'leave':
+                                                return <OnHoliday />;
 
-                            default:
-                                break;
-                        }
-                    })()
-                    }
+                                            case 'vacation':
+                                                return <VacationPending />;
 
+                                            default:
+                                                break;
+                                        }
+                                    })()}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

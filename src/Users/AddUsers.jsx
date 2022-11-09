@@ -8,7 +8,7 @@ import './AddUsers.scss';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from "bootstrap";
 import { useSelector } from "react-redux";
-
+import Select from 'react-select';
 const AddUsers = ({ editUser }) => {
     const restService = new DashboardRestService();
     let currentState = useSelector((state) => state.users);
@@ -24,6 +24,7 @@ const AddUsers = ({ editUser }) => {
     const [showSpinner, setShowSpinner] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [currentUser, setCurrentUser] = useState();
+    const [dropDownUsers, setDropdownUsers] = useState([]);
     const navigate = useNavigate();
 
     const messageModalClick = () => {
@@ -58,6 +59,26 @@ const AddUsers = ({ editUser }) => {
         setErrorFields(errorField);
         return isValidated;
     }
+
+    useEffect(() => {
+        let users = currentState.users;
+        let userList = [];
+        let sortedUsers = users.slice().sort(function (a, b) {
+            var userA = a.userName.toUpperCase();
+            var userB = b.userName.toUpperCase();
+            return (userA < userB) ? -1 : (userA > userB) ? 1 : 0;
+        });
+
+        sortedUsers.map(user => {
+            userList.push({
+                label: user.userName,
+                value: user.userGPN
+            })
+        })
+        setDropdownUsers(userList);
+
+
+    }, []);
 
     const addUser = () => {
         setShowSpinner(true);
@@ -99,7 +120,7 @@ const AddUsers = ({ editUser }) => {
         setUserName('');
         setUserProjectName('');
     }
-    
+
     useEffect(() => {
         restService.getProjects()
             .then(res => {
@@ -110,9 +131,9 @@ const AddUsers = ({ editUser }) => {
     }, [])
 
     const userChanged = (e) => {
-        setCurrentUser(e.target.value);
+        setCurrentUser(e);
         currentState.users.forEach(user => {
-            if (user.userGPN === e.target.value) {
+            if (user.userGPN === e.value) {
                 setUserEmail(user.userEmail);
                 setUserGPN(user.userGPN);
                 setUserLocation(user.userLocation);
@@ -125,22 +146,10 @@ const AddUsers = ({ editUser }) => {
     }
     return (
         <div>
-            {(editUser) && <div className="mt-5 ms-3">
-                <select
-                    value={currentUser}
-                    className="drop-down mb-3"
+            {(editUser) && <div className="mt-5 ms-3 col-md-4">
+                <Select placeholder={selectEmployee} options={dropDownUsers}
                     onChange={(e) => userChanged(e)}
-                >
-                    <option selected>{selectEmployee}</option>
-                    {currentState.users.map(user => {
-                        return (
-                            <option
-                                key={user.userGPN}
-                                value={user.userGPN}>{user.userName}
-                            </option>
-                        )
-                    })}
-                </select>
+                    value={currentUser} />
             </div>}
             {(!editUser || showForm) && <div>
                 {errorFields.length > 0 &&

@@ -1,5 +1,5 @@
 export const onHolidayHeaders = [
-    "#","Employee name","Type","Public Holiday?","Planned?"
+    "#","Employee name","Type"
 ];
 
 export const vacationPendingHeaders = [
@@ -15,8 +15,8 @@ export const fullDay = "Full Day";
 export const yes = "Yes";
 export const no = "No";
 export const onLeaveToday = "On Leave today";
-export const vacationPending = "Vacation Tracker Pending";
-export const leaveCount = "On Leave Today";
+export const vacationPending = "Vacation";
+export const leaveCount = "On Leave";
 
 //Side Panel
 export const home = "Home";
