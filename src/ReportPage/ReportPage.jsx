@@ -102,13 +102,13 @@ const ReportPage = () => {
                 </div>
                 {currentReportType === 'mail-report' && reportData && reportData.length > 0 && <div className="row mt-5">
                     <div className="row">
-                        <div className="offset-md-8 col-md-2">
+                        {/* <div className="offset-md-8 col-md-2">
                             <button class="btn btn-secondary" onClick={(e) => copyReport(e)}>
                                 <i class="fa fa-file fa-solid" aria-hidden="true"></i>
                                 &nbsp;Copy
                             </button>
 
-                        </div>
+                        </div> */}
                     </div>
                     <div>
                         <table id="sample" className="report-table">
