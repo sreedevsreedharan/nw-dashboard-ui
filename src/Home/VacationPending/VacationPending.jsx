@@ -50,8 +50,6 @@ const VacationPending = () => {
                 <div>
                     {Array.from(filteredUserMap.entries()).map(entry => {
                         const [key, value] = entry;
-                        console.log('key', key);
-                        console.log('value', value.length);
                         if (value.length > 0) {
                             return (
                                 <table className="table table-bordered mt-5">

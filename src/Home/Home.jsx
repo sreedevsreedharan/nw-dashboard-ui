@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps*/
 import React from "react";
 import DashBoardBox from "../DashBoardBox/DashBoardBox";
-import OnHoliday from "./OnHoliday/OnHoliday";
+import OnLeave from "./OnLeave/OnLeave";
 import { useDispatch, useSelector } from 'react-redux';
 import { vacationPending, leaveCount } from "../common/constants/constants";
 import { useState } from "react";
@@ -108,7 +108,7 @@ const Home = () => {
                                         switch (tableContent) {
 
                                             case 'leave':
-                                                return <OnHoliday />;
+                                                return <OnLeave />;
 
                                             case 'vacation':
                                                 return <VacationPending />;

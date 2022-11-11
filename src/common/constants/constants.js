@@ -1,4 +1,4 @@
-export const onHolidayHeaders = [
+export const onLeaveTodayHeaders = [
     "#","Employee name","Type"
 ];
 
