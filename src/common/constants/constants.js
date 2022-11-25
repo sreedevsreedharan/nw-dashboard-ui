@@ -16,6 +16,7 @@ export const yes = "Yes";
 export const no = "No";
 export const onLeaveToday = "On Leave today";
 export const vacationPending = "Vacation";
+export const shiftPending = "Shift";
 export const leaveCount = "On Leave";
 export const publicHolidayCount = "Holiday";
 

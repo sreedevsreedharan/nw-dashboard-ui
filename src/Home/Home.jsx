@@ -3,7 +3,7 @@ import React from "react";
 import DashBoardBox from "../DashBoardBox/DashBoardBox";
 import OnLeave from "./OnLeave/OnLeave";
 import { useDispatch, useSelector } from 'react-redux';
-import { vacationPending, leaveCount, publicHolidayCount } from "../common/constants/constants";
+import { vacationPending, leaveCount, publicHolidayCount, shiftPending } from "../common/constants/constants";
 import { useState } from "react";
 import { useEffect } from "react";
 import VacationPending from "./VacationPending/VacationPending";
@@ -13,6 +13,7 @@ import { Modal } from "bootstrap";
 import holiday from '../Home/OnHoliday/temp.json'; //to be removed
 import OnHoliday from "./OnHoliday/OnHoliday";
 import { useNavigate } from "react-router-dom";
+import ShiftPending from "./ShiftPending/ShiftPending";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -40,6 +41,11 @@ const Home = () => {
                 } else {
                     dispatch(addPublicHolidayToday({}));
                 }
+            })
+            .catch(error=>{
+                localStorage.setItem('accessToken','');
+                localStorage.setItem('role',""); 
+                navigate("/");            
             })
     }, []);
 
@@ -72,10 +78,14 @@ const Home = () => {
 
     useEffect(() => {
         let vacationPendingCount = 0;
+        let shiftPendingCount = 0;
         if (currentState.users) {
             currentState.users.forEach(user => {
                 if (!user.vacation) {
                     vacationPendingCount++;
+                }
+                if(!user.shift){
+                    shiftPendingCount++;
                 }
             });
 
@@ -84,6 +94,11 @@ const Home = () => {
                     count: vacationPendingCount,
                     text: vacationPending,
                     click: 'vacation'
+                },
+                {
+                    count: shiftPendingCount,
+                    text: shiftPending,
+                    click: 'shift'
                 }
             ];
             let todayContent = [
@@ -154,6 +169,8 @@ const Home = () => {
                                             return <VacationPending />;
                                         case 'ph':
                                             return <OnHoliday />
+                                        case 'shift':
+                                            return <ShiftPending />;
                                         default:
                                             break;
                                     }
