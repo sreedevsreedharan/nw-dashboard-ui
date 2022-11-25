@@ -33,8 +33,13 @@ const TrackVacation = () => {
             navigate("/");
             isNavigate(false);
         }
-    }
+    };
 
+    useEffect(() => {
+        if (!localStorage.getItem('accessToken')) {
+            navigate("/");
+        }
+    }, []);
 
     /**
      * Dropdown changed add it to value
@@ -93,7 +98,6 @@ const TrackVacation = () => {
             let myModal = new Modal(document.getElementById('leaveType'));
             myModal.show();
             vacationValues.forEach(vacation => {
-                console.log(vacation);
                 const currentDate = `${vacation.year}-${vacation.month.number > 9 ? vacation.month.number : `0${vacation.month.number}`}-${vacation.day > 9 ? vacation.day : `0${vacation.day}`}`;
                 let newDate = {};
                 if (dateAlreadyPresent(currentDate)) {
@@ -277,7 +281,7 @@ const TrackVacation = () => {
                     <div className="col-md-6">
                         <DatePicker
                             multiple
-                            ref={datePickerRef} 
+                            ref={datePickerRef}
                             shadow
                             numberOfMonths={2}
                             value={vacationValues}
@@ -287,7 +291,7 @@ const TrackVacation = () => {
                             ]}
                         >
                             <button
-                            className="btn btn-success"
+                                className="btn btn-success"
                                 style={{ margin: "10px" }}
                                 onClick={() => datePickerRef.current.closeCalendar()}
                             >
@@ -430,15 +434,33 @@ const TrackVacation = () => {
             <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class={modalHeader === error ? 'modal-header modal-error' : 'modal-header modal-success'}>
-                            <h5 class="modal-title" id="exampleModalLabel">{modalHeader}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="modal-body">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="row">
+                                        <div className="col-md-2 mt-2">
+                                            {modalHeader === error ? <i class="fa-2xl text-danger fa-solid fa-circle-exclamation"></i> :
+                                                <i class="fa-2xl text-success fa-solid fa-check"></i>}
+                                        </div>
+                                        <div className="col-md-9">
+                                            {modalBody}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body p-5">
-                            {modalBody}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary ps-5 pe-5" onClick={messageModalClick} data-bs-dismiss="modal">{ok}</button>
+                        <hr />
+                        <div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="row">
+                                        <div className="col-md-1 offset-md-8 pb-2">
+                                            <button type="button" class="btn btn-secondary ps-5 pe-5" onClick={messageModalClick} data-bs-dismiss="modal">{ok}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

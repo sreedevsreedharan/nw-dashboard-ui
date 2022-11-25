@@ -4,7 +4,7 @@ import Home from "../Home/Home";
 import SidePanel from "../SidePanel/SidePanel";
 import TrackVacation from "../TrackVacation/TrackVacation";
 import './LandingPage.scss';
-import { BrowserRouter, Navigate, Route, Routes, } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ReportPage from "../ReportPage/ReportPage";
 import DefaulterMail from "../DefaulterMail/DefaulterMail";
 import AddUsers from "../Users/AddUsers";
@@ -30,11 +30,11 @@ const LandingPage = () => {
                     <div className="row">
                         <NavBar />
                     </div>
-                    <div className="row">                        
+                    <div className="row">
                         <div className="col-md-10">
                             <Routes>
-                                {loginFeature && <Route path="/login" element={<LoginPage />} />}
-                                <Route path="/" element={<Home />} />
+                                <Route path="/" element={<LoginPage />} />
+                                <Route path="/home" element={<Home />} />
                                 <Route path="/trackVacation" element={<TrackVacation />} />
                                 <Route path="/viewReport" element={<ReportPage />} />
                                 <Route path="/defaulterMail" element={<DefaulterMail />} />

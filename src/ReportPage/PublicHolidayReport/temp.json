@@ -1,0 +1,90 @@
+{
+    "publicHolidays": {
+        "months": [
+            "November",
+            "December",
+            "January"
+        ],
+        "locations": [
+            {
+                "location": "Bangalore",
+                "holidays": [
+                    {
+                        "month": "November",
+                        "dates": [
+                            "2022-11-01",
+                            "2022-11-02"
+                        ]
+                    },
+                    {
+                        "month": "December",
+                        "dates": [
+                            "2022-12-01",
+                            "2022-12-02"
+                        ]
+                    },
+                    {
+                        "month": "January",
+                        "dates": [                            
+                        ]
+                    }
+                ]
+            },
+            {
+                "location": "Trivandrum",
+                "holidays": [
+                    {
+                        "month": "November",
+                        "dates": [
+                            "2022-11-01"
+                        ]
+                    },
+                    {
+                        "month": "December",
+                        "dates": [
+                            "2022-12-01",
+                            "2022-12-02",
+                            "2022-12-03",
+                            "2022-12-05"
+                        ]
+                    },
+                    {
+                        "month": "January",
+                        "dates": [
+                            "2022-01-01",
+                            "2022-01-02",
+                            "2022-01-03",
+                            "2022-01-05"
+                        ]
+                    }
+                ]
+            },
+            {
+                "location": "Kochi",
+                "holidays": [
+                    {
+                        "month": "November",
+                        "dates": [
+                            "2022-11-01",
+                            "2022-11-30"
+                        ]
+                    },
+                    {
+                        "month": "December",
+                        "dates": [
+                            "2022-12-01",
+                            "2022-12-02",
+                            "2022-12-03",
+                            "2022-12-05"
+                        ]
+                    },
+                    {
+                        "month": "January",
+                        "dates": [                            
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

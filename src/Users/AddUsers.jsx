@@ -10,8 +10,8 @@ import { Modal } from "bootstrap";
 import { useSelector } from "react-redux";
 import Select from 'react-select';
 const AddUsers = ({ editUser }) => {
-    const restService = new DashboardRestService();
     let currentState = useSelector((state) => state.users);
+    const restService = new DashboardRestService();
     const [projects, setProjects] = useState([]);
     const [userGPN, setUserGPN] = useState('');
     const [userName, setUserName] = useState('');
@@ -30,6 +30,12 @@ const AddUsers = ({ editUser }) => {
     const messageModalClick = () => {
         navigate("/");
     }
+
+    useEffect(()=>{
+        if(!localStorage.getItem('accessToken')){
+            navigate("/");
+        }
+    },[]);
 
 
 
