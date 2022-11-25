@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   users:[],
-  leaveToday:[]
+  leaveToday:[],
+  publicHolidayToday:[],
 }
 
 export const DashBoardSlice = createSlice({
@@ -15,10 +16,13 @@ export const DashBoardSlice = createSlice({
     },
     addLeaveToday: (state, value) => {
       state.leaveToday = value.payload;
+    },
+    addPublicHolidayToday: (state, value) => {
+      state.publicHolidayToday = value.payload;
     }    
   },
 })
 
-export const { addUsers, addLeaveToday} = DashBoardSlice.actions
+export const { addUsers, addLeaveToday, addPublicHolidayToday} = DashBoardSlice.actions
 
 export default DashBoardSlice.reducer

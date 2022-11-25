@@ -17,6 +17,7 @@ export const no = "No";
 export const onLeaveToday = "On Leave today";
 export const vacationPending = "Vacation";
 export const leaveCount = "On Leave";
+export const publicHolidayCount = "Holiday";
 
 //Side Panel
 export const home = "Home";

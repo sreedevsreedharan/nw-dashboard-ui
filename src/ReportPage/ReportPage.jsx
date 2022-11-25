@@ -3,6 +3,8 @@ import './ReportPage.scss';
 import { monthList, selectEmployee, tableHeader } from "../common/constants/constants";
 import DashboardRestService from "../common/rest/DashboardRestService";
 import { useSelector } from "react-redux";
+import PublicHolidayReport from "./PublicHolidayReport/PublicHolidayReport";
+import { useNavigate } from "react-router-dom";
 
 const ReportPage = () => {
     const [reportData, setReportData] = useState({});
@@ -12,11 +14,19 @@ const ReportPage = () => {
     const [allDates, setAllDates] = useState(true);
     const [fromDate, setFromDate] = useState(null);
     const [toDate, setToDate] = useState(null);
-    const restService = new DashboardRestService();
     const serviceUrl = process.env.REACT_APP_SERVICE;
     let currentState = useSelector((state) => state.users);
+    const restService = new DashboardRestService();
     const [dropDownUsers, setDropdownUsers] = useState([])
     const [currentUser, setCurrentUser] = useState();
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(!localStorage.getItem('accessToken')){
+            navigate("/");
+        }
+    },[]);
 
     useEffect(() => {
         const date = new Date();
@@ -102,13 +112,7 @@ const ReportPage = () => {
                 </div>
                 {currentReportType === 'mail-report' && reportData && reportData.length > 0 && <div className="row mt-5">
                     <div className="row">
-                        {/* <div className="offset-md-8 col-md-2">
-                            <button class="btn btn-secondary" onClick={(e) => copyReport(e)}>
-                                <i class="fa fa-file fa-solid" aria-hidden="true"></i>
-                                &nbsp;Copy
-                            </button>
-
-                        </div> */}
+                        {/* <PublicHolidayReport /> */}
                     </div>
                     <div>
                         <table id="sample" className="report-table">

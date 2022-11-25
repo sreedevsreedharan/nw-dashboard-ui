@@ -4,6 +4,7 @@ import dashboardReducer from './DashBoardSlice'
 export const store = configureStore({
   reducer: {
     users: dashboardReducer,
-    leaveToday: dashboardReducer
+    leaveToday: dashboardReducer,
+    publicHolidayToday : dashboardReducer
   },
 })
