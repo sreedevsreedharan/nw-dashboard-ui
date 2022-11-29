@@ -1,0 +1,18 @@
+.shift-report-table {
+    font-family: "Calibri";
+    border: solid 1px;
+
+    .project-title{
+        background-color: yellow;
+        font-weight: bold;
+    }
+
+    th {
+        border: solid 1px;
+    }
+
+    td {
+        border: solid 1px;
+        padding-left:3px;
+    }
+}

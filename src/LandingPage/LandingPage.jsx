@@ -12,6 +12,7 @@ import icon from '../images/logo-color.png';
 import LoginPage from "../Login/LoginPage";
 import { useState } from "react";
 import NavBar from "../NavBar/NavBar";
+import OptingShift from "../OptingShift/OptingShift";
 
 const LandingPage = () => {
 
@@ -40,6 +41,7 @@ const LandingPage = () => {
                                 <Route path="/defaulterMail" element={<DefaulterMail />} />
                                 <Route path="/addUsers" element={<AddUsers editUser={false} />} />
                                 <Route path="/editUsers" element={<AddUsers editUser={true} />} />
+                                <Route path="/shift" element={<OptingShift />} />
                             </Routes>
 
 

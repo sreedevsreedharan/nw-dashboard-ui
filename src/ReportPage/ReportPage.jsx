@@ -5,6 +5,7 @@ import DashboardRestService from "../common/rest/DashboardRestService";
 import { useSelector } from "react-redux";
 import PublicHolidayReport from "./PublicHolidayReport/PublicHolidayReport";
 import { useNavigate } from "react-router-dom";
+import ShiftReport from "./ShiftReport/ShiftReport";
 
 const ReportPage = () => {
     const [reportData, setReportData] = useState({});
@@ -22,11 +23,11 @@ const ReportPage = () => {
 
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        if(!localStorage.getItem('accessToken')){
+    useEffect(() => {
+        if (!localStorage.getItem('accessToken')) {
             navigate("/");
         }
-    },[]);
+    }, []);
 
     useEffect(() => {
         const date = new Date();
@@ -111,6 +112,9 @@ const ReportPage = () => {
 
                 </div>
                 {currentReportType === 'mail-report' && reportData && reportData.length > 0 && <div className="row mt-5">
+                    <div className="row mb-5">
+                        <ShiftReport />
+                    </div>
                     <div className="row">
                         {/* <PublicHolidayReport /> */}
                     </div>

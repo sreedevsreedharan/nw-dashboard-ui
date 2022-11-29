@@ -18,11 +18,11 @@ const NavBar = () => {
 
     const logout = () => {
         restService.userLogout()
-        .then(()=>{
-            localStorage.setItem('accessToken','');
-            localStorage.setItem('role',""); 
-            navigate("/");            
-        })
+            .then(() => {
+                localStorage.setItem('accessToken', '');
+                localStorage.setItem('role', "");
+                navigate("/");
+            })
     }
 
     return (
@@ -37,14 +37,22 @@ const NavBar = () => {
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Vacation
+                                    Submission
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><Link class="dropdown-item" to="/trackVacation">Track Vacation</Link></li>
-                                    {localStorage.getItem('role')==="ADMIN" && <li><Link class="dropdown-item" to="/viewReport">View Report</Link></li>}
+                                    <li><Link class="dropdown-item" to="/trackVacation">Vacation</Link></li> 
+                                    <li><Link class="dropdown-item" to="/shift">Opting Shift</Link></li>                               
                                 </ul>
-                            </li>
-                            {localStorage.getItem('role')==="ADMIN" && <li class="nav-item dropdown">
+                            </li>                           
+                            {localStorage.getItem('role') === "ADMIN" && <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Reports
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><Link class="dropdown-item" to="/viewReport">View Report</Link></li>
+                                </ul>
+                            </li>}
+                            {localStorage.getItem('role') === "ADMIN" && <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Users
                                 </a>

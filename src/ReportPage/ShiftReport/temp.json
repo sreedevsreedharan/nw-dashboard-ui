@@ -1,0 +1,20 @@
+{
+    "projects":[
+        {
+            "projectName": "Telematics",
+            "shiftOptedUsers":[
+                "Shivam Kale",
+                "Soumen Barik",
+                "Anukreethi G"
+            ]
+        },
+        {
+            "projectName": "RatedR",
+            "shiftOptedUsers":[
+                "Harsh Varddhan",
+                "Brunda K",
+                "Mirza Sibgathulla R"
+            ]
+        }
+    ]
+}

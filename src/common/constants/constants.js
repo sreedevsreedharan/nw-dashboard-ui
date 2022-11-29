@@ -36,6 +36,9 @@ export const cancel = "Cancel";
 export const confirm = "Confirm";
 export const ok = "OK";
 
+//opting shift
+export const selectProjectName = "Please select a project";
+
 export const error = "Error";
 export const success = "Success";
 

@@ -1,0 +1,49 @@
+@import '../common/scss/theme.scss';
+
+.bg-header{
+    background-color: $dashboard-color;
+    color: $dashboard-font;
+}
+.rmdp-input{
+    width: 900px;
+    height: 100px;
+    overflow-x: scroll;
+}
+
+.drop-down{
+    padding: 10px; 
+    background:$dashboard-color; 
+    border:none;
+    color: $dashboard-font;
+}
+
+.bg-blue{
+    background-color: $dashboard-color;
+    color:$dashboard-font;
+}
+
+.border-black{
+    border-bottom: solid 1px black;
+}
+
+.border-right-black{
+    border-right: solid 1px black;
+}
+
+// .modal-error{
+//     background-color: $error-header;
+//     color: $dashboard-font;
+// }
+
+// .modal-success{
+//     background-color: $success-header;
+//     color: $dashboard-font;
+// }
+
+.modal-footer{
+    justify-content: center !important;
+    border-top: none;
+}
+
+
+  
