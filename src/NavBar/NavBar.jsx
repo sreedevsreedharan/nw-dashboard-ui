@@ -22,6 +22,10 @@ const NavBar = () => {
             localStorage.setItem('accessToken','');
             localStorage.setItem('role',""); 
             navigate("/");            
+        }).catch((error)=>{
+            localStorage.setItem('accessToken','');
+            localStorage.setItem('role',""); 
+            navigate("/");            
         })
     }
 
