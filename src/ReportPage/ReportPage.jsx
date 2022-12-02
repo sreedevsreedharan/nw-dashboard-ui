@@ -31,7 +31,12 @@ const ReportPage = () => {
     useEffect(() => {
         const date = new Date();
         setCurrentMonth(monthList[date.getMonth()]);
-        setNextMonth(monthList[date.getMonth() + 1])
+        if(date.getMonth()<11){
+            setNextMonth(monthList[date.getMonth() + 1])
+        } else{
+            setNextMonth(monthList[0])
+        }
+        
     }, [])
 
     useEffect(() => {
