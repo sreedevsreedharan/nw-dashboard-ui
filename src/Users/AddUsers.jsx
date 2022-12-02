@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { baseLocation, cancel, error, eyMailId, gpn, locationList, name, ok, project, selectEmployee, selectProject, submit, success, userAdded, userNotAdded, valdiationError } from "../common/constants/constants";
+import { baseLocation, cancel, error, locationList, name, ok, project, selectEmployee, selectProject, submit, success, userAdded, userNotAdded, valdiationError } from "../common/constants/constants";
 import DashboardRestService from "../common/rest/DashboardRestService";
 import './AddUsers.scss';
 import { useNavigate } from 'react-router-dom';
@@ -13,10 +13,8 @@ const AddUsers = ({ editUser }) => {
     let currentState = useSelector((state) => state.users);
     const restService = new DashboardRestService();
     const [projects, setProjects] = useState([]);
-    const [userGPN, setUserGPN] = useState('');
     const [userName, setUserName] = useState('');
     const [userProjectName, setUserProjectName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
     const [userLocation, setUserLocation] = useState('');
     const [errorFields, setErrorFields] = useState([]);
     const [modalHeader, setModalHeader] = useState('');
@@ -42,10 +40,6 @@ const AddUsers = ({ editUser }) => {
     const validateEntries = () => {
         let isValidated = true;
         let errorField = [];
-        if (userGPN === '') {
-            isValidated = false;
-            errorField.push(gpn);
-        }
         if (userName === '') {
             isValidated = false;
             errorField.push(name);
@@ -53,10 +47,6 @@ const AddUsers = ({ editUser }) => {
         if (userProjectName === '') {
             isValidated = false;
             errorField.push(project);
-        }
-        if (userEmail === '') {
-            isValidated = false;
-            errorField.push(eyMailId);
         }
         if (userLocation === '') {
             isValidated = false;
@@ -78,7 +68,7 @@ const AddUsers = ({ editUser }) => {
         sortedUsers.map(user => {
             userList.push({
                 label: user.userName,
-                value: user.userGPN
+                value: user.userName
             })
         })
         setDropdownUsers(userList);
@@ -91,10 +81,10 @@ const AddUsers = ({ editUser }) => {
         const isValidated = validateEntries();
         if (isValidated) {
             const user = [{
-                "userGPN": userGPN,
+                "userGPN": "",
                 "userName": userName,
                 "userProjectName": userProjectName,
-                "userEmail": userEmail,
+                "userEmail": "",
                 "userActive": true,
                 "userLocation": userLocation
             }];
@@ -120,8 +110,6 @@ const AddUsers = ({ editUser }) => {
     }
 
     const clearForm = () => {
-        setUserEmail('');
-        setUserGPN('');
         setUserLocation('');
         setUserName('');
         setUserProjectName('');
@@ -139,9 +127,7 @@ const AddUsers = ({ editUser }) => {
     const userChanged = (e) => {
         setCurrentUser(e);
         currentState.users.forEach(user => {
-            if (user.userGPN === e.value) {
-                setUserEmail(user.userEmail);
-                setUserGPN(user.userGPN);
+            if (user.userName === e.value) {
                 setUserLocation(user.userLocation);
                 setUserName(user.userName);
                 setUserProjectName(user.userProjectName);
@@ -181,21 +167,7 @@ const AddUsers = ({ editUser }) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row ms-2 mt-2">
-                            <div className="col-md-12">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        {gpn}
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <input onChange={(e) => setUserGPN(e.target.value)} value={userGPN} type="text" className="form-control"></input>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                       
                         <div className="row ms-2 mt-2">
                             <div className="col-md-12">
                                 <div className="row">
@@ -217,21 +189,7 @@ const AddUsers = ({ editUser }) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row ms-2 mt-2">
-                            <div className="col-md-12">
-                                <div className="row">
-                                    <div className="col-md-2">
-                                        {eyMailId}
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <input onChange={(e) => setUserEmail(e.target.value)} value={userEmail} type="text" className="form-control"></input>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>                        
                         <div className="row ms-2 mt-2">
                             <div className="col-md-12">
                                 <div className="row">
