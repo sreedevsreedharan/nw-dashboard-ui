@@ -60,5 +60,9 @@ export default class DashboardRestService {
         return axios.post(`${this.serviceUrl}/dashboard/v1/user-log-out`,"", {headers:{Authorization:this.state.accessToken}});
     }
 
+    removeUser = (removeObject) => {
+        return axios.post(`${this.serviceUrl}/dashboard/v1/remove/user`, removeObject,{params:{access_token:this.state.accessToken}});
+    }
+
 }
 

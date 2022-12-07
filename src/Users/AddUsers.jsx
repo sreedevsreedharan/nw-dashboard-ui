@@ -29,11 +29,11 @@ const AddUsers = ({ editUser }) => {
         navigate("/");
     }
 
-    useEffect(()=>{
-        if(!localStorage.getItem('accessToken')){
+    useEffect(() => {
+        if (!localStorage.getItem('accessToken')) {
             navigate("/");
         }
-    },[]);
+    }, []);
 
 
 
@@ -136,12 +136,48 @@ const AddUsers = ({ editUser }) => {
         });
 
     }
+
+    const removeUser = () => {
+        let myModal = new Modal(document.getElementById('deleteModal'));
+        myModal.show();
+    }
+
+    const removeUserConfirm = () => {
+        const request = [];
+        currentState.users.forEach(user => {
+            if (user.userName === currentUser.value) {
+                request.push(user);
+            }
+        });
+
+        restService.removeUser(request)
+            .then((response) => {
+                if(response.status ===200){
+                    navigate("/home");
+                }
+            })
+            .catch(() => {
+                setModalHeader("Error");
+                setModalBody("Unable to delete the user. Please try after sometime");
+                let myModal = new Modal(document.getElementById('messageModal'));
+                myModal.show();
+            })
+
+        //on success redirect to home
+
+        // on error populate error message
+        console.log('request', request);
+
+    }
     return (
         <div>
             {(editUser) && <div className="mt-5 ms-3 col-md-4">
                 <Select placeholder={selectEmployee} options={dropDownUsers}
                     onChange={(e) => userChanged(e)}
                     value={currentUser} />
+            </div>}
+            {(editUser && showForm) && <div className="mt-5 ms-3 col-md-4">
+                <button className="btn btn-danger" onClick={removeUser}>Remove User</button>
             </div>}
             {(!editUser || showForm) && <div>
                 {errorFields.length > 0 &&
@@ -167,7 +203,7 @@ const AddUsers = ({ editUser }) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>                       
+                        </div>
                         <div className="row ms-2 mt-2">
                             <div className="col-md-12">
                                 <div className="row">
@@ -189,7 +225,7 @@ const AddUsers = ({ editUser }) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                         <div className="row ms-2 mt-2">
                             <div className="col-md-12">
                                 <div className="row">
@@ -236,6 +272,19 @@ const AddUsers = ({ editUser }) => {
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary ps-5 pe-5" onClick={messageModalClick} data-bs-dismiss="modal">{ok}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-5">
+                                Are you sure you want to delete {currentUser? currentUser.value:""} ?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger ps-5 pe-5" onClick={removeUserConfirm} data-bs-dismiss="modal">Yes</button>
+                                <button type="button" class="btn btn-primary ps-5 pe-5" data-bs-dismiss="modal">No</button>
                             </div>
                         </div>
                     </div>
