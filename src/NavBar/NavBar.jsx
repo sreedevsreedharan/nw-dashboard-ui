@@ -10,10 +10,15 @@ import DashboardRestService from "../common/rest/DashboardRestService";
 const NavBar = () => {
     const navigate = useNavigate();
     const restService = new DashboardRestService();
+    const serviceUrl = process.env.REACT_APP_SERVICE;
 
     const showModal = () => {
         let myModal = new Modal(document.getElementById('logoutModal'));
         myModal.show();
+    }
+
+    const downloadUserManual =() =>{
+        window.location = `${serviceUrl}/dashboard/v1/download-user-manual`;
     }
 
     const logout = () => {
@@ -40,10 +45,10 @@ const NavBar = () => {
                                     Submission
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><Link class="dropdown-item" to="/trackVacation">Vacation</Link></li> 
-                                    <li><Link class="dropdown-item" to="/shift">Opting Shift</Link></li>                               
+                                    <li><Link class="dropdown-item" to="/trackVacation">Vacation</Link></li>
+                                    <li><Link class="dropdown-item" to="/shift">Opting Shift</Link></li>
                                 </ul>
-                            </li>                           
+                            </li>
                             {localStorage.getItem('role') === "ADMIN" && <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Reports
@@ -66,9 +71,18 @@ const NavBar = () => {
                                     Account
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><Link class="dropdown-item" onClick={downloadUserManual}>User Manual</Link></li>
                                     <li><Link class="dropdown-item" onClick={showModal}>Logout</Link></li>
                                 </ul>
                             </li>
+                        </ul>
+                    </div>}
+                    {window.location.pathname == '/' &&
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                               <span className="text-small">Developed by : Sreedev Sreedharan, Shivam Kale</span> 
+                            </li>                           
                         </ul>
                     </div>}
             </div>
