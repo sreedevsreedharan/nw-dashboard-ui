@@ -95,11 +95,11 @@ const Home = () => {
                     text: vacationPending,
                     click: 'vacation'
                 },
-                {
-                    count: shiftPendingCount,
-                    text: shiftPending,
-                    click: 'shift'
-                }
+                // {
+                //     count: shiftPendingCount,
+                //     text: shiftPending,
+                //     click: 'shift'
+                // }
             ];
             let todayContent = [
                 {
