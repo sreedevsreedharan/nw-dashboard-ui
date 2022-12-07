@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { monthList } from '../../common/constants/constants';
-import holiday from './temp.json';
 import './PublicHolidayReport.scss';
 
-const PublicHolidayReport = () => {
+const PublicHolidayReport = ({reportData}) => {
 
     const [totalSpan, setTotalSpan] = useState(0);
     const [monthSpan, setMonthSpan] = useState();
     const [holidayData, setHolidayData] = useState();
 
     const getMaxOfEachMonths = () => {
-        const locations = holiday.publicHolidays.locations;
+        const locations = reportData.publicHolidays.locations;
         let monthMap = new Map();
         let tSpan = 0;
         for (let i = 0; i < locations.length; i++) {
@@ -29,13 +28,13 @@ const PublicHolidayReport = () => {
         for (let [key, value] of monthMap) {
             tSpan = tSpan + value;
         }
-        setTotalSpan(tSpan + 1);
+        setTotalSpan(tSpan + 2);
         setMonthSpan(monthMap);
         return monthMap;
     }
 
     const addEmptyToMonths = (monthMap) => {
-        let tempHolidayData = holiday;
+        let tempHolidayData = reportData;
         if (tempHolidayData) {
             for (let i = 0; i < tempHolidayData.publicHolidays.locations.length; i++) {
                 let tempHolidays = tempHolidayData.publicHolidays.locations[i].holidays;
@@ -89,6 +88,7 @@ const PublicHolidayReport = () => {
 
     return (
         <div className='mt-3 mb-5'>
+            {totalSpan > 2 &&
             <table id="sample" className="report-table">
                 <thead>
                     <tr>
@@ -127,7 +127,7 @@ const PublicHolidayReport = () => {
                     })}
 
                 </tbody>
-            </table>
+            </table>}
         </div>
     )
 }

@@ -9,6 +9,7 @@ import ShiftReport from "./ShiftReport/ShiftReport";
 
 const ReportPage = () => {
     const [reportData, setReportData] = useState({});
+    const [publicHolidayReportData, setPublicHolidayReportData] = useState({});
     const [currentMonth, setCurrentMonth] = useState();
     const [currentReportType, setCurrentReportType] = useState('none');
     const [nextMonth, setNextMonth] = useState();
@@ -49,6 +50,7 @@ const ReportPage = () => {
         restService.getReport()
             .then(res => {
                 setReportData(res.data.projects);
+                setPublicHolidayReportData(res.data);
             })
     }
 
@@ -116,7 +118,7 @@ const ReportPage = () => {
                         <ShiftReport />
                     </div>
                     <div className="row">
-                        {/* <PublicHolidayReport /> */}
+                        <PublicHolidayReport reportData={publicHolidayReportData}/>
                     </div>
                     <div>
                         <table id="sample" className="report-table">
