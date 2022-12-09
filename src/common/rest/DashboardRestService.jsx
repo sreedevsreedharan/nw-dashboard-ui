@@ -64,5 +64,13 @@ export default class DashboardRestService {
         return axios.post(`${this.serviceUrl}/dashboard/v1/remove/user`, removeObject,{params:{access_token:this.state.accessToken}});
     }
 
+    addProject = (projectObject)=>{
+        return axios.post(`${this.serviceUrl}/dashboard/v1/add/project`,projectObject);
+    }
+
+    signup = (signupObject)=>{
+        return axios.post(`${this.serviceUrl}/dashboard/v1/user-sign-up`,signupObject);
+    }
+
 }
 

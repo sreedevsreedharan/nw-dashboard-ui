@@ -27,6 +27,10 @@ const NavBar = () => {
                 localStorage.setItem('accessToken', '');
                 localStorage.setItem('role', "");
                 navigate("/");
+            }).catch(()=>{
+                localStorage.setItem('accessToken', '');
+                localStorage.setItem('role', "");
+                navigate("/");
             })
     }
 
@@ -59,11 +63,12 @@ const NavBar = () => {
                             </li>}
                             {localStorage.getItem('role') === "ADMIN" && <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Users
+                                    Users/Projects
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><Link class="dropdown-item" to="/addUsers">Add User</Link></li>
                                     <li><Link class="dropdown-item" to="/editUsers">Edit Users</Link></li>
+                                    <li><Link class="dropdown-item" to="/addProjects">Add Project</Link></li>
                                 </ul>
                             </li>}
                             <li class="nav-item dropdown">

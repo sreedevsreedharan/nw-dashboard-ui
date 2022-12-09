@@ -13,6 +13,8 @@ import LoginPage from "../Login/LoginPage";
 import { useState } from "react";
 import NavBar from "../NavBar/NavBar";
 import OptingShift from "../OptingShift/OptingShift";
+import AddProject from "../Project/AddProject";
+import SignupPage from "../Signup/Signup";
 
 const LandingPage = () => {
 
@@ -42,6 +44,8 @@ const LandingPage = () => {
                                 <Route path="/addUsers" element={<AddUsers editUser={false} />} />
                                 <Route path="/editUsers" element={<AddUsers editUser={true} />} />
                                 <Route path="/shift" element={<OptingShift />} />
+                                <Route path="/addProjects" element={<AddProject/>} />
+                                <Route path="/signup" element={<SignupPage/>} />
                             </Routes>
 
 
